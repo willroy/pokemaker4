@@ -1,0 +1,3 @@
+[submodule "lovelsm2d"]
+	path = lovelsm2d
+	url = https://github.com/willroy/lovelsm2d.git
