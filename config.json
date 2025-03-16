@@ -1,0 +1,20 @@
+{
+	"windowSize": { "w": 1300, "h": 900 },
+	"windowBackColour": { "r": 1, "g": 1, "b": 1 },
+	"windowVsync": true,
+	"windowResizable": false,
+	"windowFont": { "size": 20 },
+	"debugEnabled": false,
+	"debugFont": { "size": 20 },
+	"debugWindowPadding": {"w": 8, "h": 5},
+	"debugWindowColor": {"r": 1, "g": 1, "b": 1, "a": 0.5},
+	"debugNodeColor": {"r": 1, "g": 1, "b": 1, "a": 0.5},
+	"cursorArrow": { "path": "assets/cursorArrow.png", "w": 0, "h": 0 },
+	"cursorPoint": { "path": "assets/cursorPoint.png", "w": 0, "h": 0 },
+	"cursorPointInteract": { "path": "assets/cursorPointInteract.png", "w": 0, "h": 0 },
+	"pathData": "data.json",
+	"pathKeybinds": "keybinds.json",
+	"pathAssets": "assets",
+	"pathNodes": "nodes",
+	"pathEvents": "events"
+}

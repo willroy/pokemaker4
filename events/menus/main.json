@@ -1,0 +1,21 @@
+[
+	{
+		"trigger": "click menus/main/start",
+		"tasks": [
+			"unloadNodeGroup menus/main/main"
+		]
+	},
+	{
+		"trigger": "click menus/main/settings",
+		"tasks": [
+			"unloadNodeGroup menus/main/main",
+			"loadNodeGroup menus/settings/settings"
+		]
+	},
+	{
+		"trigger": "click menus/main/quit",
+		"tasks": [
+			"quit"
+		]
+	}
+]

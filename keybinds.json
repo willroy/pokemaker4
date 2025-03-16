@@ -1,0 +1,5 @@
+{
+	"quit": ["backspace"],
+	"pause": ["escape"],
+	"debug": [";"]
+}
