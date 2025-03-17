@@ -36,6 +36,10 @@ function love.wheelmoved(x, y)
 	lovelsm2d:wheelmoved(x, y)
 end
 
+function love.resize(w, h)
+  lovelsm2d:resize(w, h)
+end
+
 function love.quit()
 	lovelsm2d:quit()
 	return false

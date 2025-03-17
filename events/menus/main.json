@@ -3,7 +3,25 @@
 		"trigger": "click menus/main/newFile",
 		"tasks": [
 			"unloadNodeGroup menus/main/main",
-			"loadNodeGroup editor/main/editor"
+			"loadNodeGroup editor/main/editor",
+			"loadNodeGroup editor/menu_bar/editor",
+			"loadNodeGroup editor/meun_radial/editor",
+			"loadNodeGroup editor/window_layers/editor",
+			"loadNodeGroup editor/window_spritesheet/editor"
+		]
+	},
+	{
+		"trigger": "click menus/main/about",
+		"tasks": [
+			"loadNodeGroup menus/about/about",
+			"unloadNodeGroup menus/main/main"
+		]
+	},
+	{
+		"trigger": "click menus/main/settings",
+		"tasks": [
+			"loadNodeGroup menus/settings/settings",
+			"unloadNodeGroup menus/main/main"
 		]
 	}
 ]

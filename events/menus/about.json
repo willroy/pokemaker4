@@ -1,0 +1,9 @@
+[
+	{
+		"trigger": "click menus/about/back",
+		"tasks": [
+			"unloadNodeGroup menus/about/about",
+			"loadNodeGroup menus/main/main"
+		]
+	}	
+]

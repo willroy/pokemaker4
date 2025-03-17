@@ -83,7 +83,6 @@
 			"data": {
 				"drawable": { "type": "shape", "data": { "type": "rectangle", "mode": "line", "transform": { "x": 0, "y": 0 } } },
 				"hoverdrawable": { "type": "shape", "data": { "type": "rectangle", "mode": "line", "transform": { "x": -3, "y": -3, "w": 156, "h": 46 } } },
-				"event": "",
 				"text": {
 					"text": "about",
 					"positioning": "center"
@@ -102,7 +101,6 @@
 			"data": {
 				"drawable": { "type": "shape", "data": { "type": "rectangle", "mode": "line", "transform": { "x": 0, "y": 0 } } },
 				"hoverdrawable": { "type": "shape", "data": { "type": "rectangle", "mode": "line", "transform": { "x": -3, "y": -3, "w": 156, "h": 46 } } },
-				"event": "",
 				"text": {
 					"text": "settings",
 					"positioning": "center"
@@ -115,7 +113,7 @@
 	{
 		"groupHandle": "main",
 		"handle": "fileList",
-		"x": 50, "y": 240, "w": "££globals.trackers.currentWindowSize.w - 100$$", "h": 610,
+		"x": 50, "y": 240, "w": "££globals.trackers.currentWindowSize.w - 100^^", "h": 600,
 		"drawable": { "type": "shape", "data": { "type": "rectangle", "mode": "line", "transform": { "x": 0, "y": 0 }, "color": { "r": 0, "g": 0, "b": 0, "a": 0.2} } },
 		"zIndex": 0
 	}
