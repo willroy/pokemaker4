@@ -1,2 +1,9 @@
 [
+	{
+		"trigger": "click menus/main/newFile",
+		"tasks": [
+			"unloadNodeGroup menus/main/main",
+			"loadNodeGroup editor/main/editor"
+		]
+	}
 ]
