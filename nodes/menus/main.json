@@ -113,8 +113,8 @@
 	{
 		"groupHandle": "main",
 		"handle": "fileList",
-		"x": 50, "y": 240, "w": "££globals.trackers.currentWindowSize.w - 100^^", "h": 600,
-		"drawable": { "type": "shape", "data": { "type": "rectangle", "mode": "line", "transform": { "x": 0, "y": 0 }, "color": { "r": 0, "g": 0, "b": 0, "a": 0.2} } },
+		"x": 50, "y": 240, "w": "££globals.trackers.currentWindowSize.w - 100^^", "h": "££globals.trackers.currentWindowSize.h - 295^^",
+		"drawable": { "type": "shape", "data": { "type": "rectangle", "mode": "line", "transform": { "x": 0, "y": 0 }, "color": { "r": 0, "g": 0, "b": 0, "a": 0.5} } },
 		"zIndex": 0
 	}
 ]
