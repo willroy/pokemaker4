@@ -2,8 +2,8 @@
 	{
 		"trigger": "click menus/settings/back",
 		"tasks": [
-			"unloadNodeGroup menus/settings/settings",
-			"loadNodeGroup menus/main/main"
+			"unloadNodeGroup settings",
+			"loadNodeGroup main"
 		]
 	}	
 ]

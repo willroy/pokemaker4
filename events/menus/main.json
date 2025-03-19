@@ -2,26 +2,29 @@
 	{
 		"trigger": "click menus/main/newFile",
 		"tasks": [
-			"unloadNodeGroup menus/main/main",
-			"loadNodeGroup editor/main/editor",
-			"loadNodeGroup editor/menu_bar/editor",
-			"loadNodeGroup editor/meun_radial/editor",
-			"loadNodeGroup editor/window_layers/editor",
-			"loadNodeGroup editor/window_spritesheet/editor"
+			"unloadNodeGroup main",
+			"loadNodeGroup editor"
+		]
+	},
+	{
+		"trigger": "click menus/main/keybinds",
+		"tasks": [
+			"loadNodeGroup keybinds",
+			"unloadNodeGroup main"
 		]
 	},
 	{
 		"trigger": "click menus/main/about",
 		"tasks": [
-			"loadNodeGroup menus/about/about",
-			"unloadNodeGroup menus/main/main"
+			"loadNodeGroup about",
+			"unloadNodeGroup main"
 		]
 	},
 	{
 		"trigger": "click menus/main/settings",
 		"tasks": [
-			"loadNodeGroup menus/settings/settings",
-			"unloadNodeGroup menus/main/main"
+			"loadNodeGroup settings",
+			"unloadNodeGroup main"
 		]
 	}
 ]

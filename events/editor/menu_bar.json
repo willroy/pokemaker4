@@ -1,0 +1,15 @@
+[
+	{
+		"handle": "buttonMainMenu",
+		"tasks": [
+			"unloadNodeGroup editor",
+			"loadNodeGroup main"
+		]
+	},
+	{
+		"handle": "buttonQuit",
+		"tasks": [
+			"quit"
+		]
+	}
+]

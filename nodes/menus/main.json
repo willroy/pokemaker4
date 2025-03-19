@@ -57,7 +57,7 @@
 	},
 	{
 		"groupHandle": "main",
-		"handle": "tutorial",
+		"handle": "keybinds",
 		"x": 395, "y": 52, "w": 150, "h": 40,
 		"ui": {
 			"type": "button",
@@ -66,7 +66,7 @@
 				"hoverdrawable": { "type": "shape", "data": { "type": "rectangle", "mode": "line", "transform": { "x": -3, "y": -3, "w": 156, "h": 46 } } },
 				"event": "",
 				"text": {
-					"text": "tutorial",
+					"text": "keybinds",
 					"positioning": "center"
 				}
 			}
@@ -115,6 +115,12 @@
 		"handle": "fileList",
 		"x": 50, "y": 240, "w": "££globals.trackers.currentWindowSize.w - 100^^", "h": "££globals.trackers.currentWindowSize.h - 295^^",
 		"drawable": { "type": "shape", "data": { "type": "rectangle", "mode": "line", "transform": { "x": 0, "y": 0 }, "color": { "r": 0, "g": 0, "b": 0, "a": 0.5} } },
+		"ui": {
+			"type": "fileList",
+			"data": {
+				"padding": 20
+			}
+		},
 		"zIndex": 0
 	}
 ]

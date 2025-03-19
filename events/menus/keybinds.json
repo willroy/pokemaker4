@@ -1,0 +1,9 @@
+[
+	{
+		"trigger": "click menus/keybinds/back",
+		"tasks": [
+			"unloadNodeGroup keybinds",
+			"loadNodeGroup main"
+		]
+	}	
+]

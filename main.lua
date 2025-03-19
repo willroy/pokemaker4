@@ -5,7 +5,7 @@ lovelsm2d = Lovelsm2d
 function love.load()
 	lovelsm2d:init()
 
-	nodes:loadNodeGroup("menus/main/main")
+	nodes:loadNodeGroup("editor")
 end
 
 function love.update(dt)
