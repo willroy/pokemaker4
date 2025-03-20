@@ -1,0 +1,13 @@
+[
+	{
+		"groupHandle": "editor",
+		"handle": "spritesheet",
+		"x": 0, "y": 40, "w": "££globals.trackers.windowSize.w^^", "h": "££globals.trackers.windowSize.h - 360^^",
+		"drawable": { "type": "shape", "data": { "type": "rectangle", "mode": "line", "transform": { "x": 0, "y": 0 }, "color": { "r": 0.6, "g": 0.6, "b": 0.6, "a": 1 } } },
+		"ui": {
+			"type": "canvas",
+			"data": {}
+		},
+		"zIndex": 10
+	}
+]
