@@ -19,6 +19,8 @@ function TilesheetPalette:init(node, data)
 	self.selectorErrorStyle = {r = 1, g = 0.2, b = 0.2, a = 0.7, lineWeight = 3, mode = "fill", animationCount = 0}
  	self.selector = {x = 0, y = 0, w = 32, h = 32, error = false}
  	self.makingSelection = { status = false, startingPos = {x = 0, y = 0} }
+
+ 	self.selectionData = {}
 end
 
 function TilesheetPalette:generateImages(path, files)
@@ -166,6 +168,37 @@ function TilesheetPalette:mousereleased(x, y, button, istouch)
 		local inImage = startInImage or crossesImage or endInImage
 		if inImage and self.selector.y > self.images[i]:getHeight() then self.selector.error = true end
 		if inImage and ( self.selector.y + self.selector.h ) > self.images[i]:getHeight() then self.selector.error = true end
+	end
+
+	if self.selector.error == false then
+		self.selectionData = {}
+
+		-- loop through each tile in selection
+		for x = 1, ( self.selector.w / 32 ) do
+			for y = 1, ( self.selector.h / 32 ) do
+				-- get position of current tile
+				local tileX = ( self.selector.x / 32 ) + x
+				local tileY = ( self.selector.y / 32 ) + y
+				-- find image that the tile is using
+				local imageIndex = 0
+				for i = self.index, self.index+(self.columns-1) do
+					local imageLeft = ( i - 1 ) * 8
+					local imageRight = i * 8
+					local inImage = tileX > imageLeft and tileX <= imageRight
+					if inImage then
+						imageIndex = i
+						break
+					end
+				end
+				-- get the transforms for selection and tilesheet
+				local transform = {x = x, y = y}
+				local tilesheetTransform = {x = ( tileX - ( ( imageIndex - 1 ) * 8 )), y = tileY}
+
+				self.selectionData = {imageID = imageIndex, transform = transform, tilesheetTransform = tilesheetTransform}
+
+				globals.data.selectionData = self.selectionData
+			end
+		end
 	end
 end
 
