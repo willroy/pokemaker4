@@ -2,7 +2,7 @@
 	{
 		"groupHandle": "about",
 		"handle": "border",
-		"x": 50, "y": 50, "w": "££globals.trackers.currentWindowSize.w - 100^^", "h": "££globals.trackers.currentWindowSize.h - 100^^",
+		"x": 50, "y": 50, "w": "££globals.trackers.windowSize.w - 100^^", "h": "££globals.trackers.windowSize.h - 100^^",
 		"drawable": { "type": "shape", "data": { "type": "rectangle", "mode": "line", "transform": { "x": 0, "y": 0 }, "color": { "r": 0, "g": 0, "b": 0, "a": 0.5} } },
 		"zIndex": 5
 	},
@@ -17,7 +17,7 @@
 	{
 		"groupHandle": "about",
 		"handle": "back",
-		"x": "££globals.trackers.currentWindowSize.w - 250^^", "y": 100, "w": 150, "h": 40,
+		"x": "££globals.trackers.windowSize.w - 250^^", "y": 100, "w": 150, "h": 40,
 		"ui": {
 			"type": "button",
 			"data": {

@@ -3,7 +3,7 @@
 		"groupHandle": "editor",
 		"handle": "background",
 		"interactable": true,
-		"x": 0, "y": 0, "w": "££globals.trackers.currentWindowSize.w^^", "h": 40,
+		"x": 0, "y": 0, "w": "££globals.trackers.windowSize.w^^", "h": 40,
 		"drawable": { "type": "shape", "data": { "type": "rectangle", "mode": "fill", "transform": { "x": 0, "y": 0 }, "color": { "r": 1, "g": 1, "b": 1, "a": 1 } } },
 		"zIndex": 0
 	},
@@ -11,7 +11,7 @@
 		"groupHandle": "editor",
 		"handle": "background",
 		"interactable": true,
-		"x": 0, "y": 0, "w": "££globals.trackers.currentWindowSize.w^^", "h": 40,
+		"x": 0, "y": 0, "w": "££globals.trackers.windowSize.w^^", "h": 40,
 		"drawable": { "type": "shape", "data": { "type": "rectangle", "mode": "line", "transform": { "x": 0, "y": 0 }, "color": { "r": 0, "g": 0, "b": 0, "a": 0.7 } } },
 		"zIndex": 10
 	},

@@ -13,9 +13,14 @@
 	"cursorPoint": { "path": "assets/cursorPoint.png", "w": 0, "h": 0 },
 	"cursorPointInteract": { "path": "assets/cursorPointInteract.png", "w": 0, "h": 0 },
 	"cursorSize": {"w": 30, "h": 30},
+	"naturalScroll": false,
+	"scrollSpeed": 64,
 	"pathData": "data.json",
 	"pathKeybinds": "keybinds.json",
 	"pathAssets": "assets",
 	"pathNodes": "nodes",
-	"pathEvents": "events"
+	"pathEvents": "events",
+	"pathCustomUI": "uis",
+
+	"pathTilesheets": "assets/tilesheets"
 }

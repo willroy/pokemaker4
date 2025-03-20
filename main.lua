@@ -1,9 +1,12 @@
 require("lovelsm2d/main")
+require("uis/tilesheetPalette")
 
 lovelsm2d = Lovelsm2d
 
 function love.load()
 	lovelsm2d:init()
+
+	nodes.uis["tilesheetPalette"] = TilesheetPalette()
 
 	nodes:loadNodeGroup("editor")
 end

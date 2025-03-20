@@ -1,9 +1,0 @@
-[
-	{
-		"groupHandle": "editor",
-		"handle": "spritesheet",
-		"x": 0, "y": "££globals.trackers.currentWindowSize.h - 320^^", "w": 512, "h": 320,
-		"drawable": { "type": "shape", "data": { "type": "rectangle", "mode": "fill", "transform": { "x": 0, "y": 0 }, "color": { "r": 0.8, "g": 0.8, "b": 0.8, "a": 1 } } },
-		"zIndex": 0
-	}
-]
