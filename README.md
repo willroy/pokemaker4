@@ -28,3 +28,12 @@ Spritesheet bookmarks bind to keybind?
 Add ui elements for text input and checkbox
 
 alterable keybinds and settings in those menus
+
+layers indcicator:
+
+mode | layer number | layer dot | trash icon
+
+mode - normal or above player
+layer number - number indicator to reference layers by
+layer dot - empty or full for whether you are on it
+trash icon - changes to tick when click and only deletes if you click again
