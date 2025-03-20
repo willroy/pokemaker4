@@ -15,8 +15,9 @@ function TilesheetPalette:init(node, data)
 	local transform = self.node.transform
  	self.stencil = function() love.graphics.rectangle("fill", transform.x, transform.y, transform.w, transform.h) end
 
-	self.selectorColor = {r = 0.1, g = 0.6, b = 0.8, a = 1}
- 	self.selector = {x = 0, y = 0, w = 32, h = 32}
+	self.selectorStyle = {r = 0.2, g = 1, b = 0.2, a = 1, lineWeight = 1, mode = "line", animationCount = 0, animationReverseDir = false}
+	self.selectorErrorStyle = {r = 1, g = 0.2, b = 0.2, a = 0.7, lineWeight = 3, mode = "fill", animationCount = 0}
+ 	self.selector = {x = 0, y = 0, w = 32, h = 32, error = false}
  	self.makingSelection = { status = false, startingPos = {x = 0, y = 0} }
 end
 
@@ -48,15 +49,23 @@ function TilesheetPalette:update(dt)
 		local selectionFinalCornerX = currentX
 		local selectionFinalCornerY = currentY
 
-		-- handle down and right
-		if currentX > startX then selectionFinalCornerX = currentX - startX + 1 end
-		if currentY > startY then selectionFinalCornerY = currentY - startY + 1 end
+		-- handle right
+		if currentX > startX then
+			selectionFinalCornerX = currentX - startX + 1
+		end
 
-		-- handle up and left
+		-- handle down
+		if currentY > startY then
+			selectionFinalCornerY = currentY - startY + 1
+		end
+
+		-- handle left
 		if currentX < startX then
 			selectionFinalCornerX = -( startX - currentX ) - 1
 			selectionStartCornerX = self.makingSelection.startingPos.x + 1
 		end
+
+		-- handle up
 		if currentY < startY then
 			selectionFinalCornerY = -( startY - currentY ) - 1
 			selectionStartCornerY = self.makingSelection.startingPos.y + 1
@@ -78,6 +87,12 @@ function TilesheetPalette:draw()
 	local transform = self.node.transform
 	love.graphics.stencil(self.stencil, "replace", 1)
 	love.graphics.setStencilTest("greater", 0)
+
+	love.graphics.setColor(0.6,0.6,0.6,1)
+	love.graphics.rectangle("fill", self.node.transform.x, self.node.transform.y, self.padding, self.node.transform.h)
+	love.graphics.rectangle("fill", self.node.transform.x+self.padding+(self.columns*256), self.node.transform.y, self.padding, self.node.transform.h)
+	love.graphics.setColor(1,1,1,1)
+
 	for i = self.index, self.index+(self.columns-1) do
 		local image = self.images[i]
 		local x = self.node.transform.x+(image:getWidth() * (i-1))+self.padding
@@ -85,9 +100,29 @@ function TilesheetPalette:draw()
 		love.graphics.draw(image, x, y)
 		if self.fullHeight < image:getHeight() then self.fullHeight = image:getHeight() end
 	end
-	love.graphics.setColor(self.selectorColor.r, self.selectorColor.g, self.selectorColor.b, self.selectorColor.a)
-	love.graphics.setLineWidth(2)
-	love.graphics.rectangle("line", self.selector.x+self.node.transform.x+self.padding, self.selector.y+self.node.transform.y+self.scroll, self.selector.w, self.selector.h)
+
+	if self.selector.error and (( self.selectorErrorStyle.animationCount > 10 and self.selectorErrorStyle.animationCount < 20 ) or self.selectorErrorStyle.animationCount > 30 ) then
+		love.graphics.setColor(self.selectorErrorStyle.r, self.selectorErrorStyle.g, self.selectorErrorStyle.b, 0.5)
+		love.graphics.rectangle("fill", self.selector.x+self.node.transform.x+self.padding, self.selector.y+self.node.transform.y+self.scroll, self.selector.w, self.selector.h)
+		love.graphics.setColor(self.selectorErrorStyle.r, self.selectorErrorStyle.g, self.selectorErrorStyle.b, self.selectorErrorStyle.a)
+		love.graphics.setLineWidth(self.selectorErrorStyle.lineWeight)
+		love.graphics.rectangle("line", self.selector.x+self.node.transform.x+self.padding, self.selector.y+self.node.transform.y+self.scroll, self.selector.w, self.selector.h)
+	end
+	if self.selector.error then
+		self.selectorErrorStyle.animationCount = self.selectorErrorStyle.animationCount + 1
+	else
+		love.graphics.setColor(self.selectorStyle.r, self.selectorStyle.g, self.selectorStyle.b, self.selectorStyle.a)
+		love.graphics.setLineWidth(self.selectorStyle.lineWeight+self.selectorStyle.animationCount)
+		love.graphics.rectangle(self.selectorStyle.mode, self.selector.x+self.node.transform.x+self.padding, self.selector.y+self.node.transform.y+self.scroll, self.selector.w, self.selector.h)
+		if not self.selectorStyle.animationReverseDir then self.selectorStyle.animationCount = self.selectorStyle.animationCount + 0.05 end
+		if self.selectorStyle.animationReverseDir then self.selectorStyle.animationCount = self.selectorStyle.animationCount - 0.05 end
+		if self.selectorStyle.animationCount <= 0 then
+			self.selectorStyle.animationReverseDir = false
+		end
+		if self.selectorStyle.animationCount > 3 then
+			self.selectorStyle.animationReverseDir = true
+		end
+	end
 	love.graphics.setLineWidth(1)
 	love.graphics.setColor(1,1,1,1)
 	love.graphics.setStencilTest()
@@ -108,6 +143,8 @@ function TilesheetPalette:mousepressed(x, y, button, istouch)
 			self.makingSelection.startingPos.y = tileY
 			self.selector.x = self.makingSelection.startingPos.x * 32
 			self.selector.y = self.makingSelection.startingPos.y * 32
+			self.selector.error = false
+			self.selectorErrorStyle.animationCount = 0
 		end
 	end
 end
@@ -115,6 +152,21 @@ end
 function TilesheetPalette:mousereleased(x, y, button, istouch)
 	self.makingSelection.status = false
 	self.makingSelection.startingPos = {x = 0, y = 0}
+
+	-- check error on palette borders
+	if self.selector.x < 0 or self.selector.x > ( self.columns * 256 ) then self.selector.error = true end 
+	if ( self.selector.x + self.selector.w ) < 0 or ( self.selector.x + self.selector.w ) > ( self.columns * 256 ) then self.selector.error = true end
+	if self.selector.y < 0 or self.selector.y > self.fullHeight then self.selector.error = true end 
+	if ( self.selector.y + self.selector.h ) < 0 or ( self.selector.y + self.selector.h ) > self.fullHeight then self.selector.error = true end
+
+	for i = self.index, self.index+(self.columns-1) do
+		local startInImage = self.selector.x > ( ( i - 1 ) * 256 ) and self.selector.x < ( i * 256 )
+		local crossesImage = self.selector.x < ( ( i - 1 ) * 256 ) and ( self.selector.x + self.selector.w ) > ( i * 256 )
+		local endInImage = ( self.selector.x + self.selector.w ) > ( ( i - 1 ) * 256 ) and ( self.selector.x + self.selector.w ) < ( i * 256 )
+		local inImage = startInImage or crossesImage or endInImage
+		if inImage and self.selector.y > self.images[i]:getHeight() then self.selector.error = true end
+		if inImage and ( self.selector.y + self.selector.h ) > self.images[i]:getHeight() then self.selector.error = true end
+	end
 end
 
 function TilesheetPalette:wheelmoved(x, y)
