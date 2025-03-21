@@ -1,0 +1,13 @@
+[
+	{
+		"groupHandle": "editor",
+		"handle": "canvas",
+		"interactable": true,
+		"x": "££globals.trackers.windowSize.w - 80^^", "y": 60, "w": 60, "h": 150,
+		"ui": {
+			"type": "layers",
+			"data": {}
+		},
+		"zIndex": 10
+	}
+]
