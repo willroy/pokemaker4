@@ -8,7 +8,32 @@ function FileListPreview:init(node, data)
 	self.padding = data.padding or 0
 	self.color = data.color or { r = 0, g = 0, b = 0, a = 1 }
 
-	self.maps = globals.data.maps
+	local savePath = love.filesystem.getSaveDirectory()
+	local maps = helper:scanDir(savePath)
+
+	self.maps = {}
+
+	for k, map in pairs(maps) do
+		if love.filesystem.getInfo(map).type == "directory" then
+			self.maps[#self.maps+1] = map
+		end
+	end
+end
+
+function FileListPreview:loadLayersData(path)
+	local layers = {}
+
+	local layerFiles = helper:scanDir(path)
+
+	for k, layer in pairs(layerFiles) do
+		local tiles = {}
+		if layer.tiles ~= nil then
+			for k2, tile in pairs(layer.tiles) do tiles[#tiles+1] = tile end
+		end
+		layers[#layers+1] = {floaty = false, tiles = tiles}
+	end
+
+	return layers
 end
 
 function FileListPreview:update(dt)
@@ -31,7 +56,15 @@ function FileListPreview:mousepressed(x, y, button, istouch)
 		local fileX = self.node.transform.x + self.padding
 		local fileY = self.node.transform.y + self.padding + ( ( k - 1 ) * 40 )
 		if x > fileX and y > fileY and y < ( fileY + 40 ) then
-			print(map)
+			local savePath = love.filesystem.getSaveDirectory()
+			local layers = self:loadLayersData(savePath.."/"..map.."/")
+			globals.data.map = {}
+			globals.data.map["map"] = map
+			globals.data.map["layers"] = layers
+			globals.data.map["currentLayer"] = 1
+			nodes:unloadNodeGroup("main")
+			nodes:loadNodeGroup("editor")
+			return "abort"
 		end
 	end
 end

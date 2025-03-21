@@ -4,11 +4,15 @@ function Canvas:init(node, data)
 	if node == nil or data == nil then return end
 
 	self.node = node
-
-	self.tiles = {}
 end
 
 function Canvas:update(dt)
+	if self.map == nil or self.layerNum ~= globals.data.map["currentLayer"] then
+		self.map = globals.data.map
+		self.layer = globals.data.map["layers"][globals.data.map["currentLayer"]]
+		self.layerNum = globals.data.map["currentLayer"]
+	end
+
 	if not helper:contains(input.nodes_hovered, self.node) or #input.nodes_hovered ~= 1 then return end
 
 	if globals.data.selectionData ~= nil and input.mouseDown then
@@ -20,15 +24,25 @@ function Canvas:update(dt)
 
 		for k, data in pairs(globals.data.selectionData) do
 			data.quad = love.graphics.newQuad(data.tilesheetTransform.x*32-32, data.tilesheetTransform.y*32-32, 32, 32, data.image)
-			self.tiles[#self.tiles+1] = {x = currentX+data.transform.x-1, y = currentY+data.transform.y, data = data}
-		end		
+			self:addTile({x = currentX+data.transform.x-1, y = currentY+data.transform.y, data = data})
+		end
 	end
 end
 
 function Canvas:draw()
-	for k, tile in pairs(self.tiles) do
+	for k, tile in pairs(self.layer.tiles) do
 		love.graphics.draw(tile.data.image, tile.data.quad, tile.x*32, tile.y*32)
 	end
+end
+
+function Canvas:addTile(data)
+	for k, tile in pairs(self.layer.tiles) do
+		if tile.x == data.x and tile.y == data.y then
+			self.layer.tiles[k] = data
+			return
+		end
+	end
+	self.layer.tiles[#self.layer.tiles+1] = data
 end
 
 function Canvas:mousepressed(x, y, button, istouch)

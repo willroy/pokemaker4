@@ -90,6 +90,8 @@ function TilesheetPalette:draw()
 	love.graphics.stencil(self.stencil, "replace", 1)
 	love.graphics.setStencilTest("greater", 0)
 
+	love.graphics.setColor(1,1,1,1)
+	love.graphics.rectangle("fill", self.node.transform.x, self.node.transform.y, self.node.transform.w, self.node.transform.h)
 	love.graphics.setColor(0.6,0.6,0.6,1)
 	love.graphics.rectangle("fill", self.node.transform.x, self.node.transform.y, self.padding, self.node.transform.h)
 	love.graphics.rectangle("fill", self.node.transform.x+self.padding+(self.columns*256), self.node.transform.y, self.padding, self.node.transform.h)

@@ -5,21 +5,15 @@ function Layers:init(node, data)
 
 	self.node = node
 
-	self.layers = {
-		{id = 4, floaty = false, visible = true},
-		{id = 3, floaty = true, visible = true},
-		{id = 2, floaty = false, visible = true},
-		{id = 1, floaty = false, visible = true}
-	}
-
-	self.layer = 3
-
-	globals.data.layer = self.layers[self.layer]
-
 	self.layerIndicatorStyle = {r = 0.2, g = 0.2, b = 0.2, a = 1}
 end
 
 function Layers:update(dt)
+	if self.map == nil then
+		self.map = globals.data.map
+		self.layers = globals.data.map["layers"]
+		self.layer = globals.data.map["currentLayer"]
+	end
 end
 
 function Layers:draw()
@@ -36,7 +30,7 @@ function Layers:draw()
 		local mode = "line"
 		if self.layer == k then mode = "fill" end
 
-		love.graphics.print(l.id, layerDotX-25, layerDotY-2)
+		love.graphics.print(k, layerDotX-25, layerDotY-2)
 		if l.floaty then love.graphics.print("^", layerDotX-50, layerDotY+2) end
 		love.graphics.rectangle(mode, layerDotX, layerDotY, layerDotW, layerDotH) 
 	end
@@ -61,8 +55,8 @@ function Layers:mousepressed(x, y, button, istouch)
 
 		if x > layerDotX and x < ( layerDotX + layerDotW ) then
 			if y > layerDotY and y < ( layerDotY + layerDotH ) then
-				globals.data.layer = self.layers[self.layer]
 				self.layer = k
+				globals.data.map["currentLayer"] = self.layer
 				self.clickLock = true
 				break
 			end
