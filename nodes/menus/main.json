@@ -19,26 +19,15 @@
 	},
 	{
 		"groupHandle": "main",
-		"handle": "newFile",
+		"handle": "version",
 		"x": 220, "y": 102, "w": 150, "h": 40,
-		"ui": {
-			"type": "button",
-			"data": {
-				"drawable": { "type": "shape", "data": { "type": "rectangle", "mode": "line", "transform": { "x": 0, "y": 0 } } },
-				"hoverdrawable": { "type": "shape", "data": { "type": "rectangle", "mode": "line", "transform": { "x": -3, "y": -3, "w": 156, "h": 46 } } },
-				"event": "",
-				"text": {
-					"text": "new file",
-					"positioning": "center"
-				}
-			}
-		},
-		"zIndex": 0,
-		"interactable": true
+		"text": { "text": "££globals.data.version$$", "positioning": "center" },
+		"drawable": { "type": "shape", "data": { "type": "rectangle", "mode": "line", "transform": { "x": 0, "y": 0 }, "color": { "r": 0, "g": 0, "b": 0, "a": 0.2} } },
+		"zIndex": 0
 	},
 	{
 		"groupHandle": "main",
-		"handle": "loadFile",
+		"handle": "newFile",
 		"x": 220, "y": 152, "w": 150, "h": 40,
 		"ui": {
 			"type": "button",
@@ -47,7 +36,7 @@
 				"hoverdrawable": { "type": "shape", "data": { "type": "rectangle", "mode": "line", "transform": { "x": -3, "y": -3, "w": 156, "h": 46 } } },
 				"event": "",
 				"text": {
-					"text": "load file",
+					"text": "new map",
 					"positioning": "center"
 				}
 			}

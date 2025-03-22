@@ -37,3 +37,30 @@ mode - normal or above player
 layer number - number indicator to reference layers by
 layer dot - empty or full for whether you are on it
 trash icon - changes to tick when click and only deletes if you click again
+
+
+TODO
+
+- layer visiblity on canvas
+- Events ability to call method ( for new file to generate template map on globals.data.map and for saving? )
+- New file
+- Save Map
+- Better filelistpreview selector and actual preview
+- eraser 
+- onion skin mode
+- brush sizes
+- fix bottom right to top left selection data
+- undo redo
+- layer window work
+- layer delete
+- layer delete confirmation
+- layer make floaty / non floaty
+- move layer up or down
+- select tiles with selection tool 
+- move selected tiles around canvas
+- canvas tools: brush, selection
+- option to move selected tiles to another layer
+- tilesheet selector resizing bar
+- tileseheet selector browse more sheets
+- tilesheet selector favouriting and favourites tab
+- favourites make selection by only clicking

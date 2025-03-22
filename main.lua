@@ -16,6 +16,8 @@ function love.load()
 	nodes.uis["layers"] = Layers()
 	nodes.uis["fileListPreview"] = FileListPreview()
 
+	globals.data.version = "build-"..string.sub(helper:readFile("version.txt", false), 1, 4).."+1"
+
 	-- load nodes from files
 	lovelsm2d:loadNodes()
 
