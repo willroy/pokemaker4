@@ -11,8 +11,8 @@ end
 function Layers:update(dt)
 	if self.map == nil then
 		self.map = globals.data.map
-		self.layers = globals.data.map["layers"]
-		self.layer = globals.data.map["currentLayer"]
+		self.layers = globals.data.map.layers
+		self.layer = globals.data.map.currentLayer
 	end
 end
 
@@ -20,7 +20,7 @@ function Layers:draw()
 	love.graphics.setColor(self.layerIndicatorStyle.r, self.layerIndicatorStyle.g, self.layerIndicatorStyle.b, self.layerIndicatorStyle.a) 
 
 	for k, l in pairs(self.layers) do
-		local distanceFromCurrent = k - self.layer
+		local distanceFromCurrent = -(k - self.layer)
 
 		local layerDotX = self.node.transform.x + ( self.node.transform.w / 2 )
 		local layerDotY = self.node.transform.y + ( self.node.transform.h / 2 ) + ( distanceFromCurrent * 40 )
@@ -41,7 +41,7 @@ end
 function Layers:mousepressed(x, y, button, istouch)
 	if self.clickLock == true then return end
 	for k, l in pairs(self.layers) do
-		local distanceFromCurrent = k - self.layer
+		local distanceFromCurrent = -(k - self.layer)
 		-- drawn hitbox
 		local layerDotX = self.node.transform.x + ( self.node.transform.w / 2 )
 		local layerDotY = self.node.transform.y + ( self.node.transform.h / 2 ) + ( distanceFromCurrent * 40 )

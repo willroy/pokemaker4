@@ -7,10 +7,11 @@ function Canvas:init(node, data)
 end
 
 function Canvas:update(dt)
-	if self.map == nil or self.layerNum ~= globals.data.map["currentLayer"] then
+	if self.map == nil or self.layerNum ~= globals.data.map.currentLayer then
 		self.map = globals.data.map
-		self.layer = globals.data.map["layers"][globals.data.map["currentLayer"]]
-		self.layerNum = globals.data.map["currentLayer"]
+		self.layers = globals.data.map.layers
+		self.layer = globals.data.map.layers[globals.data.map.currentLayer]
+		self.layerNum = globals.data.map.currentLayer
 	end
 
 	if not helper:contains(input.nodes_hovered, self.node) or #input.nodes_hovered ~= 1 then return end
@@ -30,8 +31,10 @@ function Canvas:update(dt)
 end
 
 function Canvas:draw()
-	for k, tile in pairs(self.layer.tiles) do
-		love.graphics.draw(tile.data.image, tile.data.quad, tile.x*32, tile.y*32)
+	for k, layer in pairs(self.layers) do
+		for k, tile in pairs(layer.tiles) do
+			love.graphics.draw(tile.data.image, tile.data.quad, tile.x*32, tile.y*32)
+		end
 	end
 end
 
@@ -43,6 +46,7 @@ function Canvas:addTile(data)
 		end
 	end
 	self.layer.tiles[#self.layer.tiles+1] = data
+	globals.data.map.layers[globals.data.map.currentLayer].tiles = self.layer.tiles
 end
 
 function Canvas:mousepressed(x, y, button, istouch)

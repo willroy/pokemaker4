@@ -47,7 +47,7 @@
 	{
 		"groupHandle": "main",
 		"handle": "keybinds",
-		"x": 395, "y": 52, "w": 150, "h": 40,
+		"x": 395, "y": 102, "w": 150, "h": 40,
 		"ui": {
 			"type": "button",
 			"data": {
@@ -66,7 +66,7 @@
 	{
 		"groupHandle": "main",
 		"handle": "about",
-		"x": 395, "y": 102, "w": 150, "h": 40,
+		"x": 395, "y": 52, "w": 150, "h": 40,
 		"ui": {
 			"type": "button",
 			"data": {

@@ -2,8 +2,17 @@
 	{
 		"handle": "buttonMainMenu",
 		"tasks": [
+			"function saveMap",
 			"unloadNodeGroup editor",
 			"loadNodeGroup main"
+		]
+	},
+	{
+		"handle": "buttonSaveMap",
+		"tasks": [
+			"function saveMap",
+			"unloadNodeGroup editor",
+			"quit"
 		]
 	},
 	{

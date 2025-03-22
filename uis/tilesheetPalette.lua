@@ -5,7 +5,7 @@ function TilesheetPalette:init(node, data)
 
 	self.node = node
 	self.files = helper:getFilesInDir(globals.config.pathTilesheets)
-	self.images = self:generateImages(globals.config.pathTilesheets, self.files)
+	self.images, self.imagePaths = self:generateImages(globals.config.pathTilesheets, self.files)
 	self.index = 1
 	self.columns = math.floor(globals.trackers.windowSize.w / 256)
 	self.scroll = 0
@@ -25,12 +25,14 @@ end
 
 function TilesheetPalette:generateImages(path, files)
 	local images = {}
+	local imagePaths = {}
 
 	for k, file in pairs(files) do
 		images[#images+1] = love.graphics.newImage(path.."/"..file)
+		imagePaths[#imagePaths+1] = path.."/"..file
 	end
 
-	return images
+	return images, imagePaths
 end
 
 function TilesheetPalette:update(dt)
@@ -204,7 +206,7 @@ function TilesheetPalette:mousereleased(x, y, button, istouch)
 				local transform = {x = x, y = y}
 				local tilesheetTransform = {x = ( tileX - ( ( imageIndex - 1 ) * 8 )), y = tileY}
 
-				self.selectionData[#self.selectionData+1] = {image = self.images[imageIndex], transform = transform, tilesheetTransform = tilesheetTransform}
+				self.selectionData[#self.selectionData+1] = {imagePath = self.imagePaths[imageIndex], image = self.images[imageIndex], transform = transform, tilesheetTransform = tilesheetTransform}
 
 				globals.data.selectionData = self.selectionData
 			end

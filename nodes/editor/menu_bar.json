@@ -27,31 +27,27 @@
 					"drawable": { "type": "shape", "data": { "type": "rectangle", "mode": "fill", "transform": { "x": 0, "y": 0, "w": 150, "h": 200 }, "color": { "r": 1, "g": 1, "b": 1, "a": 1 } } }
 				},
 				"menu": {
-					"label": { "text": "file", "positioning": "center", "transform": { "x": 0, "y": 0, "w": 150, "h": 40 }},
+					"label": { "text": "map", "positioning": "center", "transform": { "x": 0, "y": 0, "w": 150, "h": 40 }},
 					"drawable": { "type": "shape", "data": { "type": "rectangle", "mode": "line", "transform": { "x": 0, "y": 0, "w": 150, "h": 40 }, "color": { "r": 0, "g": 0, "b": 0, "a": 0.2 } } },
 					"hoverdrawable": { "type": "shape", "data": { "type": "rectangle", "mode": "line", "transform": { "x": -2, "y": -2, "w": 154, "h": 44 }, "color": { "r": 0, "g": 0, "b": 0, "a": 0.2 } } }
 				},
 				"submenus": [
 					{
-						"label": { "text": "new file", "positioning": "center", "transform": { "x": 0, "y": 0, "w": 150, "h": 40 } },
-						"drawable": { "type": "shape", "data": { "type": "rectangle", "mode": "line", "transform": { "x": 0, "y": 0, "w": 150, "h": 40 }, "color": { "r": 0, "g": 0, "b": 0, "a": 0.2 } } },
-						"hoverdrawable": { "type": "shape", "data": { "type": "rectangle", "mode": "line", "transform": { "x": -2, "y": -2, "w": 154, "h": 44 }, "color": { "r": 0, "g": 0, "b": 0, "a": 0.2 } } }
-					},
-					{
-						"label": { "text": "save file", "positioning": "center", "transform": { "x": 0, "y": 0, "w": 150, "h": 40 } },
-						"drawable": { "type": "shape", "data": { "type": "rectangle", "mode": "line", "transform": { "x": 0, "y": 0, "w": 150, "h": 40 }, "color": { "r": 0, "g": 0, "b": 0, "a": 0.2 } } },
-						"hoverdrawable": { "type": "shape", "data": { "type": "rectangle", "mode": "line", "transform": { "x": -2, "y": -2, "w": 154, "h": 44 }, "color": { "r": 0, "g": 0, "b": 0, "a": 0.2 } } }
-					},
-					{
-						"label": { "text": "main menu", "positioning": "center", "transform": { "x": 0, "y": 0, "w": 150, "h": 40 } },
-						"drawable": { "type": "shape", "data": { "type": "rectangle", "mode": "line", "transform": { "x": 0, "y": 0, "w": 150, "h": 40 }, "color": { "r": 0, "g": 0, "b": 0, "a": 0.2 } } },
-						"hoverdrawable": { "type": "shape", "data": { "type": "rectangle", "mode": "line", "transform": { "x": -2, "y": -2, "w": 154, "h": 44 }, "color": { "r": 0, "g": 0, "b": 0, "a": 0.2 } } },
+						"label": { "text": "save & main menu", "positioning": "top-left", "transform": { "x": 10, "y": 10, "w": 200, "h": 40 } },
+						"drawable": { "type": "shape", "data": { "type": "rectangle", "mode": "line", "transform": { "x": 0, "y": 0, "w": 200, "h": 40 }, "color": { "r": 0, "g": 0, "b": 0, "a": 0.2 } } },
+						"hoverdrawable": { "type": "shape", "data": { "type": "rectangle", "mode": "line", "transform": { "x": -2, "y": -2, "w": 204, "h": 44 }, "color": { "r": 0, "g": 0, "b": 0, "a": 0.2 } } },
 						"event": "editor/menu_bar/buttonMainMenu"
 					},
 					{
-						"label": { "text": "quit", "positioning": "center", "transform": { "x": 0, "y": 0, "w": 150, "h": 40 } },
-						"drawable": { "type": "shape", "data": { "type": "rectangle", "mode": "line", "transform": { "x": 0, "y": 0, "w": 150, "h": 40 }, "color": { "r": 0, "g": 0, "b": 0, "a": 0.2 } } },
-						"hoverdrawable": { "type": "shape", "data": { "type": "rectangle", "mode": "line", "transform": { "x": -2, "y": -2, "w": 154, "h": 44 }, "color": { "r": 0, "g": 0, "b": 0, "a": 0.2 } } },
+						"label": { "text": "save & quit", "positioning": "top-left", "transform": { "x": 10, "y": 10, "w": 200, "h": 40 } },
+						"drawable": { "type": "shape", "data": { "type": "rectangle", "mode": "line", "transform": { "x": 0, "y": 0, "w": 200, "h": 40 }, "color": { "r": 0, "g": 0, "b": 0, "a": 0.2 } } },
+						"hoverdrawable": { "type": "shape", "data": { "type": "rectangle", "mode": "line", "transform": { "x": -2, "y": -2, "w": 204, "h": 44 }, "color": { "r": 0, "g": 0, "b": 0, "a": 0.2 } } },
+						"event": "editor/menu_bar/buttonSaveMap"
+					},
+					{
+						"label": { "text": "quit", "positioning": "top-left", "transform": { "x": 10, "y": 10, "w": 200, "h": 40 } },
+						"drawable": { "type": "shape", "data": { "type": "rectangle", "mode": "line", "transform": { "x": 0, "y": 0, "w": 200, "h": 40 }, "color": { "r": 0, "g": 0, "b": 0, "a": 0.2 } } },
+						"hoverdrawable": { "type": "shape", "data": { "type": "rectangle", "mode": "line", "transform": { "x": -2, "y": -2, "w": 204, "h": 44 }, "color": { "r": 0, "g": 0, "b": 0, "a": 0.2 } } },
 						"event": "editor/menu_bar/buttonQuit"
 					}
 				]
