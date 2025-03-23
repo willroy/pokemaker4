@@ -24,6 +24,8 @@ function Canvas:update(dt)
 end
 
 function Canvas:draw()
+  -- need to draw relative to self.node.transform
+
 	if self.map == nil or self.layerNum ~= globals.data.map.currentLayer then
 		self.map = globals.data.map
 		self.layers = globals.data.map.layers
@@ -31,10 +33,19 @@ function Canvas:draw()
 		self.layerNum = globals.data.map.currentLayer
 	end
 
+	local mousePos = globals.trackers.mousePos
+	local mouseAdjuX = ( math.floor((mousePos.x) / 32) * 32 )
+	local mouseAdjuY = ( math.floor((mousePos.y) / 32) * 32 )
+
+	love.graphics.rectangle("line", mouseAdjuX, mouseAdjuY, 32, 32)
+
 	for k1, layer in pairs(self.layers) do
 		for k, tile in pairs(layer.tiles) do
+			local tileX = ( tile.x * 32 )
+			local tileY = ( tile.y * 32 )
+
 			if tile.data.quad == nil then tile.data.quad = love.graphics.newQuad(tile.data.tilesheetTransform.x*32-32, tile.data.tilesheetTransform.y*32-32, 32, 32, globals.data.tilesheetImages[tile.data.imagePath]) end
-			love.graphics.draw(globals.data.tilesheetImages[tile.data.imagePath], tile.data.quad, tile.x*32, tile.y*32)
+			love.graphics.draw(globals.data.tilesheetImages[tile.data.imagePath], tile.data.quad, tileX, tileY)
 		end
 	end
 end
