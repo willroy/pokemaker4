@@ -7,13 +7,6 @@ function Canvas:init(node, data)
 end
 
 function Canvas:update(dt)
-	if self.map == nil or self.layerNum ~= globals.data.map.currentLayer then
-		self.map = globals.data.map
-		self.layers = globals.data.map.layers
-		self.layer = globals.data.map.layers[globals.data.map.currentLayer]
-		self.layerNum = globals.data.map.currentLayer
-	end
-
 	if not helper:contains(input.nodes_hovered, self.node) or #input.nodes_hovered ~= 1 then return end
 
 	if globals.data.selectionData ~= nil and input.mouseDown then
@@ -31,6 +24,13 @@ function Canvas:update(dt)
 end
 
 function Canvas:draw()
+	if self.map == nil or self.layerNum ~= globals.data.map.currentLayer then
+		self.map = globals.data.map
+		self.layers = globals.data.map.layers
+		self.layer = globals.data.map.layers[globals.data.map.currentLayer]
+		self.layerNum = globals.data.map.currentLayer
+	end
+
 	for k1, layer in pairs(self.layers) do
 		for k, tile in pairs(layer.tiles) do
 			if tile.data.quad == nil then tile.data.quad = love.graphics.newQuad(tile.data.tilesheetTransform.x*32-32, tile.data.tilesheetTransform.y*32-32, 32, 32, globals.data.tilesheetImages[tile.data.imagePath]) end

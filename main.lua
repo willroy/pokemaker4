@@ -26,7 +26,30 @@ function love.load()
 end
 
 function newMap()
-	
+	local layers = {}
+	layers[1] = {floaty = false, tiles = {}}
+	layers[2] = {floaty = false, tiles = {}}
+
+	globals.data.map = {}
+	globals.data.map["map"] = "map"..#helper:scanDir(love.filesystem.getSaveDirectory())
+	globals.data.map["layers"] = layers
+	globals.data.map["currentLayer"] = 1
+
+	globals.data.tilesheetImages = {}
+	globals.data.tilesheetImagePaths = {}
+
+	local path = globals.config.pathTilesheets
+	local files = helper:getFilesInDir(globals.config.pathTilesheets)
+	local images = {}
+	local imagePaths = {}
+
+	for k, file in pairs(files) do
+		images[path.."/"..file] = love.graphics.newImage(path.."/"..file)
+		imagePaths[#imagePaths+1] = path.."/"..file
+	end
+
+	globals.data.tilesheetImages = images
+	globals.data.tilesheetImagePaths = imagePaths
 end
 
 function saveMap()

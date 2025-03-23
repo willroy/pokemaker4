@@ -9,14 +9,15 @@ function Layers:init(node, data)
 end
 
 function Layers:update(dt)
+end
+
+function Layers:draw()
 	if self.map == nil then
 		self.map = globals.data.map
 		self.layers = globals.data.map.layers
 		self.layer = globals.data.map.currentLayer
 	end
-end
 
-function Layers:draw()
 	love.graphics.setColor(self.layerIndicatorStyle.r, self.layerIndicatorStyle.g, self.layerIndicatorStyle.b, self.layerIndicatorStyle.a) 
 
 	for k, l in pairs(self.layers) do

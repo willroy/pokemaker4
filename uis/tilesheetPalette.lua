@@ -22,14 +22,6 @@ function TilesheetPalette:init(node, data)
 end
 
 function TilesheetPalette:update(dt)
-	if self.images == nil then
-		self.images = {}
-		for k, v in pairs(globals.data.tilesheetImagePaths) do
-			self.images[k] = globals.data.tilesheetImages[v]
-		end
-	end
-	if self.imagePaths == nil then self.imagePaths = globals.data.tilesheetImagePaths end
-
 	self.columns = math.floor(globals.trackers.windowSize.w / 256)
 	self.padding = ( globals.trackers.windowSize.w - ( 256 * self.columns ) ) / 2
 	if self.makingSelection.status then
@@ -82,6 +74,14 @@ function TilesheetPalette:update(dt)
 end
 
 function TilesheetPalette:draw()
+	if self.images == nil then
+		self.images = {}
+		for k, v in pairs(globals.data.tilesheetImagePaths) do
+			self.images[k] = globals.data.tilesheetImages[v]
+		end
+	end
+	if self.imagePaths == nil then self.imagePaths = globals.data.tilesheetImagePaths end
+
 	local transform = self.node.transform
 	love.graphics.stencil(self.stencil, "replace", 1)
 	love.graphics.setStencilTest("greater", 0)

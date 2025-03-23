@@ -2,6 +2,7 @@
 	{
 		"trigger": "click menus/main/newFile",
 		"tasks": [
+			"function newMap",
 			"unloadNodeGroup main",
 			"loadNodeGroup editor"
 		]
