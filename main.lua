@@ -16,6 +16,8 @@ function love.load()
 	nodes.uis["layers"] = Layers()
 	nodes.uis["fileListPreview"] = FileListPreview()
 
+	os.execute('git rev-parse --short HEAD > version.txt')
+
 	globals.data.version = "build-"..string.sub(helper:readFile("version.txt", false), 1, 4)
 
 	-- load nodes from files
@@ -25,7 +27,33 @@ function love.load()
 	nodes:loadNodeGroup("main")
 end
 
+function clearMapData()
+	if globals.data.map ~= nil then
+		globals.data.map.layers = nil
+		globals.data.map.currentLayer = nil
+		globals.data.map = nil
+	end
+
+	local canvas = nodes:getNode("editor/canvas/canvas").ui
+	local layers = nodes:getNode("editor/layers/layers").ui
+
+	if canvas.map ~= nil then
+		canvas.map = nil
+		canvas.layer = nil
+		canvas.layers = nil
+		canvas.layerNum = nil
+	end
+
+	if layers.map ~= nil then
+		layers.map = nil
+		layers.layers = nil
+		layers.layer = nil
+	end
+end
+
 function newMap()
+	clearMapData()
+
 	local layers = {}
 	layers[1] = {floaty = false, tiles = {}}
 	layers[2] = {floaty = false, tiles = {}}
@@ -70,6 +98,8 @@ function saveMap()
 end
 
 function loadMap(map)
+	clearMapData()
+	
 	local savePath = love.filesystem.getSaveDirectory()
 
 	local layers = {}

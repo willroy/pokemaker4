@@ -107,7 +107,7 @@
 		"ui": {
 			"type": "fileListPreview",
 			"data": {
-				"padding": 20
+				"padding": {"x": 20, "y": 8}
 			}
 		},
 		"zIndex": 0
