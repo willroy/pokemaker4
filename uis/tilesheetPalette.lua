@@ -4,8 +4,6 @@ function TilesheetPalette:init(node, data)
 	if node == nil or data == nil then return end
 
 	self.node = node
-	self.files = helper:getFilesInDir(globals.config.pathTilesheets)
-	self.images, self.imagePaths = self:generateImages(globals.config.pathTilesheets, self.files)
 	self.index = 1
 	self.columns = math.floor(globals.trackers.windowSize.w / 256)
 	self.scroll = 0
@@ -23,19 +21,15 @@ function TilesheetPalette:init(node, data)
  	self.selectionData = {}
 end
 
-function TilesheetPalette:generateImages(path, files)
-	local images = {}
-	local imagePaths = {}
-
-	for k, file in pairs(files) do
-		images[#images+1] = love.graphics.newImage(path.."/"..file)
-		imagePaths[#imagePaths+1] = path.."/"..file
-	end
-
-	return images, imagePaths
-end
-
 function TilesheetPalette:update(dt)
+	if self.images == nil then
+		self.images = {}
+		for k, v in pairs(globals.data.tilesheetImagePaths) do
+			self.images[k] = globals.data.tilesheetImages[v]
+		end
+	end
+	if self.imagePaths == nil then self.imagePaths = globals.data.tilesheetImagePaths end
+
 	self.columns = math.floor(globals.trackers.windowSize.w / 256)
 	self.padding = ( globals.trackers.windowSize.w - ( 256 * self.columns ) ) / 2
 	if self.makingSelection.status then

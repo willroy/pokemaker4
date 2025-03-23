@@ -20,22 +20,6 @@ function FileListPreview:init(node, data)
 	end
 end
 
-function FileListPreview:loadLayersData(path)
-	local layers = {}
-
-	local layerFiles = helper:scanDir(path)
-
-	for k, layer in pairs(layerFiles) do
-		local tiles = {}
-		if layer.tiles ~= nil then
-			for k2, tile in pairs(layer.tiles) do tiles[#tiles+1] = tile end
-		end
-		layers[#layers+1] = {floaty = false, tiles = tiles}
-	end
-
-	return layers
-end
-
 function FileListPreview:update(dt)
 end
 
@@ -56,12 +40,7 @@ function FileListPreview:mousepressed(x, y, button, istouch)
 		local fileX = self.node.transform.x + self.padding
 		local fileY = self.node.transform.y + self.padding + ( ( k - 1 ) * 40 )
 		if x > fileX and y > fileY and y < ( fileY + 40 ) then
-			local savePath = love.filesystem.getSaveDirectory()
-			local layers = self:loadLayersData(savePath.."/"..map.."/")
-			globals.data.map = {}
-			globals.data.map["map"] = map
-			globals.data.map["layers"] = layers
-			globals.data.map["currentLayer"] = 1
+			loadMap(map)
 			nodes:unloadNodeGroup("main")
 			nodes:loadNodeGroup("editor")
 			return "abort"

@@ -30,18 +30,11 @@ function newMap()
 end
 
 function saveMap()
-	print("saving...")
-
-
 	if nodes:isNodeGroupLoaded("editor") then
 		local currentMap = globals.data.map.map
 		local layers = helper:tableDeepCopy(globals.data.map.layers)
 
 		local mapPath = love.filesystem.getSaveDirectory().."/"..currentMap.."/"
-
-		-- for k, tile in pairs(layers[1].tiles) do
-		-- 	print(k.." "..tile.data.image)
-		-- end
 
 		for k, layer in pairs(layers) do
 			for k2, tile in pairs(layer.tiles) do
@@ -51,6 +44,44 @@ function saveMap()
 			helper:writeFile(mapPath.."layer"..k..".json", layer)
 		end
 	end
+end
+
+function loadMap(map)
+	local savePath = love.filesystem.getSaveDirectory()
+
+	local layers = {}
+
+	local layerFiles = helper:scanDir(savePath.."/"..map.."/")
+
+	for k, layerFile in pairs(layerFiles) do
+		local layer = helper:readSaveFile(map.."/"..layerFile)
+		local tiles = {}
+		if layer.tiles ~= nil then
+			for k2, tile in pairs(layer.tiles) do tiles[#tiles+1] = tile end
+		end
+		layers[#layers+1] = {floaty = false, tiles = tiles}
+	end
+
+	globals.data.map = {}
+	globals.data.map["map"] = map
+	globals.data.map["layers"] = layers
+	globals.data.map["currentLayer"] = 1
+
+	globals.data.tilesheetImages = {}
+	globals.data.tilesheetImagePaths = {}
+
+	local path = globals.config.pathTilesheets
+	local files = helper:getFilesInDir(globals.config.pathTilesheets)
+	local images = {}
+	local imagePaths = {}
+
+	for k, file in pairs(files) do
+		images[path.."/"..file] = love.graphics.newImage(path.."/"..file)
+		imagePaths[#imagePaths+1] = path.."/"..file
+	end
+
+	globals.data.tilesheetImages = images
+	globals.data.tilesheetImagePaths = imagePaths
 end
 
 function love.update(dt)

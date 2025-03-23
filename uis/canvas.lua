@@ -31,9 +31,10 @@ function Canvas:update(dt)
 end
 
 function Canvas:draw()
-	for k, layer in pairs(self.layers) do
+	for k1, layer in pairs(self.layers) do
 		for k, tile in pairs(layer.tiles) do
-			love.graphics.draw(tile.data.image, tile.data.quad, tile.x*32, tile.y*32)
+			if tile.data.quad == nil then tile.data.quad = love.graphics.newQuad(tile.data.tilesheetTransform.x*32-32, tile.data.tilesheetTransform.y*32-32, 32, 32, globals.data.tilesheetImages[tile.data.imagePath]) end
+			love.graphics.draw(globals.data.tilesheetImages[tile.data.imagePath], tile.data.quad, tile.x*32, tile.y*32)
 		end
 	end
 end
