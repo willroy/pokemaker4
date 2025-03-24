@@ -82,17 +82,30 @@ function TilesheetPalette:draw()
 	end
 	if self.imagePaths == nil then self.imagePaths = globals.data.tilesheetImagePaths end
 
-	local transform = self.node.transform
+	love.graphics.setColor(1,1,1,1)
+	love.graphics.setLineWidth(1)
 	love.graphics.stencil(self.stencil, "replace", 1)
 	love.graphics.setStencilTest("greater", 0)
 
+	self:drawBorder()
+	self:drawTilesheets()
+	self:drawSelector()
+
+	love.graphics.setColor(1,1,1,1)
+	love.graphics.setLineWidth(1)
+	love.graphics.setStencilTest()
+end
+
+function TilesheetPalette:drawBorder()
 	love.graphics.setColor(1,1,1,1)
 	love.graphics.rectangle("fill", self.node.transform.x, self.node.transform.y, self.node.transform.w, self.node.transform.h)
 	love.graphics.setColor(0.6,0.6,0.6,1)
 	love.graphics.rectangle("fill", self.node.transform.x, self.node.transform.y, self.padding, self.node.transform.h)
 	love.graphics.rectangle("fill", self.node.transform.x+self.padding+(self.columns*256), self.node.transform.y, self.padding, self.node.transform.h)
 	love.graphics.setColor(1,1,1,1)
+end
 
+function TilesheetPalette:drawTilesheets()
 	for i = self.index, self.index+(self.columns-1) do
 		local image = self.images[i]
 		local x = self.node.transform.x+(image:getWidth() * (i-1))+self.padding
@@ -100,12 +113,10 @@ function TilesheetPalette:draw()
 		love.graphics.draw(image, x, y)
 		if self.fullHeight < image:getHeight() then self.fullHeight = image:getHeight() end
 	end
+end
 
-	if self.selector.x == nil or self.selector.y == nil then
-		love.graphics.setColor(1,1,1,1)
-		love.graphics.setStencilTest()
-		return
-	end
+function TilesheetPalette:drawSelector()
+	if self.selector.x == nil or self.selector.y == nil then return end
 
 	if self.selector.error and (( self.selectorErrorStyle.animationCount > 10 and self.selectorErrorStyle.animationCount < 20 ) or self.selectorErrorStyle.animationCount > 30 ) then
 		love.graphics.setColor(self.selectorErrorStyle.r, self.selectorErrorStyle.g, self.selectorErrorStyle.b, 0.5)
@@ -114,6 +125,7 @@ function TilesheetPalette:draw()
 		love.graphics.setLineWidth(self.selectorErrorStyle.lineWeight)
 		love.graphics.rectangle("line", self.selector.x+self.node.transform.x+self.padding, self.selector.y+self.node.transform.y+self.scroll, self.selector.w, self.selector.h)
 	end
+
 	if self.selector.error then
 		self.selectorErrorStyle.animationCount = self.selectorErrorStyle.animationCount + 1
 	else
@@ -129,26 +141,25 @@ function TilesheetPalette:draw()
 			self.selectorStyle.animationReverseDir = true
 		end
 	end
-	love.graphics.setLineWidth(1)
-	love.graphics.setColor(1,1,1,1)
-	love.graphics.setStencilTest()
 end
 
 function TilesheetPalette:mousepressed(x, y, button, istouch)
 	if helper:contains(input.nodes_hovered, self.node) then
 		if button == 1 then
-			self.makingSelection.status = true
 			local mousePos = globals.trackers.mousePos
 			local adjustedX = mousePos.x - (self.node.transform.x + self.padding)
 			local adjustedY = mousePos.y - self.node.transform.y
 			local tileX = math.floor(adjustedX/32)
 			local tileY = math.floor(adjustedY/32) - math.floor(self.scroll/32)
+
+			self.makingSelection.status = true
+			self.makingSelection.startingPos = { x = tileX, y = tileY }
+
 			self.selector.w = 32
 			self.selector.h = 32
-			self.makingSelection.startingPos.x = tileX
-			self.makingSelection.startingPos.y = tileY
 			self.selector.x = self.makingSelection.startingPos.x * 32
 			self.selector.y = self.makingSelection.startingPos.y * 32
+
 			self.selector.error = false
 			self.selectorErrorStyle.animationCount = 0
 		end
@@ -161,7 +172,14 @@ function TilesheetPalette:mousereleased(x, y, button, istouch)
 
 	if self.selector.x == nil or self.selector.y == nil then return end
 
-	-- check error on palette borders
+	self:checkForErrors()
+
+	if not self.selector.error then
+		self:createSelectionData()
+	end
+end
+
+function TilesheetPalette:checkForErrors()
 	if self.selector.x < 0 or self.selector.x > ( self.columns * 256 ) then self.selector.error = true end 
 	if ( self.selector.x + self.selector.w ) < 0 or ( self.selector.x + self.selector.w ) > ( self.columns * 256 ) then self.selector.error = true end
 	if self.selector.y < 0 or self.selector.y > self.fullHeight then self.selector.error = true end 
@@ -175,35 +193,32 @@ function TilesheetPalette:mousereleased(x, y, button, istouch)
 		if inImage and self.selector.y > self.images[i]:getHeight() then self.selector.error = true end
 		if inImage and ( self.selector.y + self.selector.h ) > self.images[i]:getHeight() then self.selector.error = true end
 	end
+end
 
-	if self.selector.error == false then
-		self.selectionData = {}
+function TilesheetPalette:createSelectionData()
+	self.selectionData = {}
 
-		-- loop through each tile in selection
-		for x = 1, ( self.selector.w / 32 ) do
-			for y = 1, ( self.selector.h / 32 ) do
-				-- get position of current tile
-				local tileX = ( self.selector.x / 32 ) + x
-				local tileY = ( self.selector.y / 32 ) + y
-				-- find image that the tile is using
-				local imageIndex = 0
-				for i = self.index, self.index+(self.columns-1) do
-					local imageLeft = ( i - 1 ) * 8
-					local imageRight = i * 8
-					local inImage = tileX > imageLeft and tileX <= imageRight
-					if inImage then
-						imageIndex = i
-						break
-					end
+	for x = 1, ( self.selector.w / 32 ) do
+		for y = 1, ( self.selector.h / 32 ) do
+			local tileX = ( self.selector.x / 32 ) + x
+			local tileY = ( self.selector.y / 32 ) + y
+			local imageIndex = 0
+			for i = self.index, self.index+(self.columns-1) do
+				local imageLeft = ( i - 1 ) * 8
+				local imageRight = i * 8
+				local inImage = tileX > imageLeft and tileX <= imageRight
+				if inImage then
+					imageIndex = i
+					break
 				end
-				-- get the transforms for selection and tilesheet
-				local transform = {x = x, y = y}
-				local tilesheetTransform = {x = ( tileX - ( ( imageIndex - 1 ) * 8 )), y = tileY}
-
-				self.selectionData[#self.selectionData+1] = {imagePath = self.imagePaths[imageIndex], image = self.images[imageIndex], transform = transform, tilesheetTransform = tilesheetTransform}
-
-				globals.data.selectionData = self.selectionData
 			end
+
+			local transform = {x = x, y = y}
+			local tilesheetTransform = {x = ( tileX - ( ( imageIndex - 1 ) * 8 )), y = tileY}
+
+			self.selectionData[#self.selectionData+1] = {imagePath = self.imagePaths[imageIndex], image = self.images[imageIndex], transform = transform, tilesheetTransform = tilesheetTransform}
+
+			globals.data.selectionData = self.selectionData
 		end
 	end
 end

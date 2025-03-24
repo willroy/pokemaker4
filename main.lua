@@ -38,9 +38,7 @@ function clearMapData()
 	local layers = nodes:getNode("editor/layers/layers").ui
 
 	if canvas.map ~= nil then
-		canvas.map = nil
 		canvas.layer = nil
-		canvas.layers = nil
 		canvas.layerNum = nil
 	end
 

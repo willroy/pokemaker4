@@ -12,15 +12,11 @@ function Layers:update(dt)
 end
 
 function Layers:draw()
-	if self.map == nil then
-		self.map = globals.data.map
-		self.layers = globals.data.map.layers
-		self.layer = globals.data.map.currentLayer
-	end
+	if self.layer ~= globals.data.map.currentLayer then self.layer = globals.data.map.currentLayer end
 
 	love.graphics.setColor(self.layerIndicatorStyle.r, self.layerIndicatorStyle.g, self.layerIndicatorStyle.b, self.layerIndicatorStyle.a) 
 
-	for k, l in pairs(self.layers) do
+	for k, l in pairs(globals.data.map.layers) do
 		local distanceFromCurrent = -(k - self.layer)
 
 		local layerDotX = self.node.transform.x + ( self.node.transform.w / 2 )
@@ -41,24 +37,22 @@ end
 
 function Layers:mousepressed(x, y, button, istouch)
 	if self.clickLock == true then return end
-	for k, l in pairs(self.layers) do
+	for k, l in pairs(globals.data.map.layers) do
 		local distanceFromCurrent = -(k - self.layer)
-		-- drawn hitbox
-		local layerDotX = self.node.transform.x + ( self.node.transform.w / 2 )
-		local layerDotY = self.node.transform.y + ( self.node.transform.h / 2 ) + ( distanceFromCurrent * 40 )
-		local layerDotW = 20
-		local layerDotH = 20
-		-- better hitbox (more leeway)
-		layerDotX = layerDotX - 10
-		layerDotY = layerDotY - 10
-		layerDotW = layerDotW + 20
-		layerDotH = layerDotH + 20
+
+		local paddingTL = -10
+		local paddingBR = 20
+
+		local layerDotX = self.node.transform.x + ( self.node.transform.w / 2 ) + paddingTL
+		local layerDotY = self.node.transform.y + ( self.node.transform.h / 2 ) + ( distanceFromCurrent * 40 ) + paddingTL
+		local layerDotW = 20 + paddingBR
+		local layerDotH = 20 + paddingBR
 
 		if x > layerDotX and x < ( layerDotX + layerDotW ) then
 			if y > layerDotY and y < ( layerDotY + layerDotH ) then
 				self.layer = k
-				globals.data.map["currentLayer"] = self.layer
 				self.clickLock = true
+				globals.data.map["currentLayer"] = self.layer
 				break
 			end
 		end
