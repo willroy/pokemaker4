@@ -85,7 +85,9 @@ function saveMap()
 
 		local mapPath = love.filesystem.getSaveDirectory().."/"..currentMap.."/"
 
-		-- need to create dir if map dir doesnt exisit
+		if not helper:fileExists(mapPath) then
+			love.filesystem.createDirectory(currentMap)
+		end
 
 		for k, layer in pairs(layers) do
 			for k2, tile in pairs(layer.tiles) do
@@ -94,6 +96,9 @@ function saveMap()
 			end
 			helper:writeFile(mapPath.."layer"..k..".json", layer)
 		end
+
+		local fileList = nodes:getNode("menus/main/fileList").ui
+		fileList:loadMaps()
 	end
 end
 

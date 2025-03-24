@@ -5,6 +5,14 @@ function FileListPreview:init(node, data)
 
 	self.node = node
 	self.path = data.path or love.filesystem.getSaveDirectory()
+	
+	self:loadMaps()
+
+	self.padding = data.padding or {x = 0, y = 0}
+	self.color = data.color or { r = 0, g = 0, b = 0, a = 1 }
+end
+
+function FileListPreview:loadMaps()
 	self.maps = {}
 
 	local maps = helper:scanDir(self.path)
@@ -14,9 +22,6 @@ function FileListPreview:init(node, data)
 			self.maps[#self.maps+1] = map
 		end
 	end
-
-	self.padding = data.padding or {x = 0, y = 0}
-	self.color = data.color or { r = 0, g = 0, b = 0, a = 1 }
 end
 
 function FileListPreview:update(dt)
