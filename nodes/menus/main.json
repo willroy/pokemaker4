@@ -64,16 +64,15 @@
 	},
 	{
 		"groupHandle": "main",
-		"handle": "keybinds",
+		"handle": "settings",
 		"x": 305, "y": 70, "w": 120, "h": 30,
 		"ui": {
 			"type": "button",
 			"data": {
 				"drawable": { "type": "shape", "data": { "type": "rectangle", "mode": "line", "transform": { "x": 0, "y": 0 } } },
 				"hoverdrawable": { "type": "shape", "data": { "type": "rectangle", "mode": "line", "transform": { "x": -2, "y": -2, "w": 124, "h": 34 } } },
-				"event": "",
 				"text": {
-					"text": "keybinds",
+					"text": "settings",
 					"positioning": "center"
 				}
 			}
@@ -83,15 +82,16 @@
 	},
 	{
 		"groupHandle": "main",
-		"handle": "settings",
+		"handle": "quit",
 		"x": 305, "y": 115, "w": 120, "h": 30,
 		"ui": {
 			"type": "button",
 			"data": {
 				"drawable": { "type": "shape", "data": { "type": "rectangle", "mode": "line", "transform": { "x": 0, "y": 0 } } },
 				"hoverdrawable": { "type": "shape", "data": { "type": "rectangle", "mode": "line", "transform": { "x": -2, "y": -2, "w": 124, "h": 34 } } },
+				"event": "",
 				"text": {
-					"text": "settings",
+					"text": "quit",
 					"positioning": "center"
 				}
 			}

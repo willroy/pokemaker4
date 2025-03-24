@@ -8,10 +8,9 @@
 		]
 	},
 	{
-		"trigger": "click menus/main/keybinds",
+		"trigger": "click menus/main/quit",
 		"tasks": [
-			"loadNodeGroup keybinds",
-			"unloadNodeGroup main"
+			"quit"
 		]
 	},
 	{
