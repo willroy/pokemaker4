@@ -5,14 +5,14 @@
 		"x": 50, "y": 50, "w": 125, "h": 125,
 		"drawable": {
 			"type": "image",
-			"data": { "path": "icon.png", "scale": {"x": 6, "y": 6 } }
+			"data": { "path": "icon.png", "scale": {"x": 5, "y": 5 } }
 		},
 		"zIndex": 0
 	},
 	{
 		"groupHandle": "main",
 		"handle": "title",
-		"x": 220, "y": 52, "w": 150, "h": 40,
+		"x": 190, "y": 50, "w": 120, "h": 30,
 		"text": { "text": "pokemaker", "positioning": "center" },
 		"drawable": { "type": "shape", "data": { "type": "rectangle", "mode": "line", "transform": { "x": 0, "y": 0 }, "color": { "r": 0, "g": 0, "b": 0, "a": 0.2} } },
 		"zIndex": 0
@@ -20,7 +20,7 @@
 	{
 		"groupHandle": "main",
 		"handle": "version",
-		"x": 220, "y": 102, "w": 150, "h": 40,
+		"x": 190, "y": 95, "w": 120, "h": 30,
 		"text": { "text": "££globals.data.version$$", "positioning": "center" },
 		"drawable": { "type": "shape", "data": { "type": "rectangle", "mode": "line", "transform": { "x": 0, "y": 0 }, "color": { "r": 0, "g": 0, "b": 0, "a": 0.2} } },
 		"zIndex": 0
@@ -28,12 +28,12 @@
 	{
 		"groupHandle": "main",
 		"handle": "newFile",
-		"x": 220, "y": 152, "w": 150, "h": 40,
+		"x": 190, "y": 140, "w": 120, "h": 30,
 		"ui": {
 			"type": "button",
 			"data": {
 				"drawable": { "type": "shape", "data": { "type": "rectangle", "mode": "line", "transform": { "x": 0, "y": 0 } } },
-				"hoverdrawable": { "type": "shape", "data": { "type": "rectangle", "mode": "line", "transform": { "x": -3, "y": -3, "w": 156, "h": 46 } } },
+				"hoverdrawable": { "type": "shape", "data": { "type": "rectangle", "mode": "line", "transform": { "x": -2, "y": -2, "w": 124, "h": 34 } } },
 				"event": "",
 				"text": {
 					"text": "new map",
@@ -46,13 +46,31 @@
 	},
 	{
 		"groupHandle": "main",
-		"handle": "keybinds",
-		"x": 395, "y": 102, "w": 150, "h": 40,
+		"handle": "about",
+		"x": 330, "y": 50, "w": 120, "h": 30,
 		"ui": {
 			"type": "button",
 			"data": {
 				"drawable": { "type": "shape", "data": { "type": "rectangle", "mode": "line", "transform": { "x": 0, "y": 0 } } },
-				"hoverdrawable": { "type": "shape", "data": { "type": "rectangle", "mode": "line", "transform": { "x": -3, "y": -3, "w": 156, "h": 46 } } },
+				"hoverdrawable": { "type": "shape", "data": { "type": "rectangle", "mode": "line", "transform": { "x": -2, "y": -2, "w": 124, "h": 34 } } },
+				"text": {
+					"text": "about",
+					"positioning": "center"
+				}
+			}
+		},
+		"zIndex": 0,
+		"interactable": true
+	},
+	{
+		"groupHandle": "main",
+		"handle": "keybinds",
+		"x": 330, "y": 95, "w": 120, "h": 30,
+		"ui": {
+			"type": "button",
+			"data": {
+				"drawable": { "type": "shape", "data": { "type": "rectangle", "mode": "line", "transform": { "x": 0, "y": 0 } } },
+				"hoverdrawable": { "type": "shape", "data": { "type": "rectangle", "mode": "line", "transform": { "x": -2, "y": -2, "w": 124, "h": 34 } } },
 				"event": "",
 				"text": {
 					"text": "keybinds",
@@ -65,31 +83,13 @@
 	},
 	{
 		"groupHandle": "main",
-		"handle": "about",
-		"x": 395, "y": 52, "w": 150, "h": 40,
-		"ui": {
-			"type": "button",
-			"data": {
-				"drawable": { "type": "shape", "data": { "type": "rectangle", "mode": "line", "transform": { "x": 0, "y": 0 } } },
-				"hoverdrawable": { "type": "shape", "data": { "type": "rectangle", "mode": "line", "transform": { "x": -3, "y": -3, "w": 156, "h": 46 } } },
-				"text": {
-					"text": "about",
-					"positioning": "center"
-				}
-			}
-		},
-		"zIndex": 0,
-		"interactable": true
-	},
-	{
-		"groupHandle": "main",
 		"handle": "settings",
-		"x": 395, "y": 152, "w": 150, "h": 40,
+		"x": 330, "y": 140, "w": 120, "h": 30,
 		"ui": {
 			"type": "button",
 			"data": {
 				"drawable": { "type": "shape", "data": { "type": "rectangle", "mode": "line", "transform": { "x": 0, "y": 0 } } },
-				"hoverdrawable": { "type": "shape", "data": { "type": "rectangle", "mode": "line", "transform": { "x": -3, "y": -3, "w": 156, "h": 46 } } },
+				"hoverdrawable": { "type": "shape", "data": { "type": "rectangle", "mode": "line", "transform": { "x": -2, "y": -2, "w": 124, "h": 34 } } },
 				"text": {
 					"text": "settings",
 					"positioning": "center"
@@ -102,7 +102,7 @@
 	{
 		"groupHandle": "main",
 		"handle": "fileList",
-		"x": 50, "y": 240, "w": "££globals.trackers.windowSize.w - 100^^", "h": "££globals.trackers.windowSize.h - 295^^",
+		"x": 50, "y": 190, "w": "££globals.trackers.windowSize.w - 100^^", "h": "££globals.trackers.windowSize.h - 240^^",
 		"drawable": { "type": "shape", "data": { "type": "rectangle", "mode": "line", "transform": { "x": 0, "y": 0 }, "color": { "r": 0, "g": 0, "b": 0, "a": 0.5} } },
 		"ui": {
 			"type": "fileListPreview",
