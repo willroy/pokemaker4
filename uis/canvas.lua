@@ -12,7 +12,7 @@ function Canvas:update(dt)
 	if globals.data.selectionData ~= nil and input.mouseDown then
 		local mousePos = globals.trackers.mousePos
 		local mouseAdjuX = self.node.transform.x + ( math.floor((mousePos.x) / 32) * 32 )
-		local mouseAdjuY = self.node.transform.y + ( math.floor((mousePos.y) / 32) * 32 ) - 32
+		local mouseAdjuY = self.node.transform.y + ( math.floor((mousePos.y) / 32) * 32 )
 		local currentX = math.floor(mouseAdjuX / 32)
 		local currentY = math.floor(mouseAdjuY / 32) - 1
 
@@ -35,6 +35,8 @@ function Canvas:draw()
 			love.graphics.draw(globals.data.tilesheetImages[tile.data.imagePath], tile.data.quad, tileX, tileY)
 		end
 	end
+
+	if not helper:contains(input.nodes_hovered, self.node) or #input.nodes_hovered ~= 1 then return end
 
 	local mousePos = globals.trackers.mousePos
 	local mouseAdjuX = self.node.transform.x + ( math.floor((mousePos.x) / 32) * 32 )

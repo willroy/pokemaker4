@@ -90,6 +90,7 @@ function TilesheetPalette:draw()
 	self:drawBorder()
 	self:drawTilesheets()
 	self:drawSelector()
+	self:drawMouseIndicator()
 
 	love.graphics.setColor(1,1,1,1)
 	love.graphics.setLineWidth(1)
@@ -143,6 +144,19 @@ function TilesheetPalette:drawSelector()
 	end
 end
 
+function TilesheetPalette:drawMouseIndicator()
+	love.graphics.setColor(0,0,0,0.5)
+	love.graphics.setLineWidth(1)
+
+	local mousePos = globals.trackers.mousePos
+	local adjustedX = mousePos.x - (self.node.transform.x + self.padding)
+	local adjustedY = mousePos.y - self.node.transform.y
+	local mouseAdjuX = ( math.floor(adjustedX/32) * 32 ) + self.node.transform.x + self.padding
+	local mouseAdjuY = ( ( math.floor(adjustedY/32) - math.floor(self.scroll/32) ) * 32 ) + self.node.transform.y
+
+	love.graphics.rectangle("line", mouseAdjuX, mouseAdjuY, 32, 32)
+end
+
 function TilesheetPalette:mousepressed(x, y, button, istouch)
 	if helper:contains(input.nodes_hovered, self.node) then
 		if button == 1 then
@@ -162,6 +176,10 @@ function TilesheetPalette:mousepressed(x, y, button, istouch)
 
 			self.selector.error = false
 			self.selectorErrorStyle.animationCount = 0
+		end
+		if button == 2 then
+			self.selector = {x = nil, y = nil, w = 32, h = 32, error = false}
+		 	self.makingSelection = { status = false, startingPos = {x = 0, y = 0} }
 		end
 	end
 end
@@ -198,6 +216,17 @@ end
 function TilesheetPalette:createSelectionData()
 	self.selectionData = {}
 
+	-- reverse start and end tiles for bottom right to top left selections
+	if self.selector.w < 0 then
+		self.selector.w = -self.selector.w
+		self.selector.x = self.selector.x - self.selector.w
+	end
+	if self.selector.h < 0 then
+		self.selector.h = -self.selector.h
+		self.selector.y = self.selector.y - self.selector.h
+	end
+
+	-- update selection data
 	for x = 1, ( self.selector.w / 32 ) do
 		for y = 1, ( self.selector.h / 32 ) do
 			local tileX = ( self.selector.x / 32 ) + x
