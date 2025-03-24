@@ -2,14 +2,14 @@
 	{
 		"groupHandle": "about",
 		"handle": "border",
-		"x": 50, "y": 50, "w": "££globals.trackers.windowSize.w - 100^^", "h": "££globals.trackers.windowSize.h - 100^^",
+		"x": 25, "y": 25, "w": "££globals.trackers.windowSize.w - 50^^", "h": "££globals.trackers.windowSize.h - 50^^",
 		"drawable": { "type": "shape", "data": { "type": "rectangle", "mode": "line", "transform": { "x": 0, "y": 0 }, "color": { "r": 0, "g": 0, "b": 0, "a": 0.5} } },
 		"zIndex": 5
 	},
 	{
 		"groupHandle": "about",
 		"handle": "title",
-		"x": 100, "y": 100, "w": 150, "h": 40,
+		"x": 50, "y": 50, "w": 120, "h": 30,
 		"text": { "text": "about", "positioning": "center" },
 		"drawable": { "type": "shape", "data": { "type": "rectangle", "mode": "line", "transform": { "x": 0, "y": 0 }, "color": { "r": 0, "g": 0, "b": 0, "a": 0.2} } },
 		"zIndex": 10
@@ -17,12 +17,12 @@
 	{
 		"groupHandle": "about",
 		"handle": "back",
-		"x": "££globals.trackers.windowSize.w - 250^^", "y": 100, "w": 150, "h": 40,
+		"x": "££globals.trackers.windowSize.w - 175^^", "y": 50, "w": 120, "h": 30,
 		"ui": {
 			"type": "button",
 			"data": {
 				"drawable": { "type": "shape", "data": { "type": "rectangle", "mode": "line", "transform": { "x": 0, "y": 0 } } },
-				"hoverdrawable": { "type": "shape", "data": { "type": "rectangle", "mode": "line", "transform": { "x": -3, "y": -3, "w": 156, "h": 46 } } },
+				"hoverdrawable": { "type": "shape", "data": { "type": "rectangle", "mode": "line", "transform": { "x": -2, "y": -2, "w": 124, "h": 34 } } },
 				"event": "",
 				"text": {
 					"text": "back",

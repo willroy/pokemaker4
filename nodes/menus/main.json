@@ -2,7 +2,7 @@
 	{
 		"groupHandle": "main",
 		"handle": "icon",
-		"x": 50, "y": 50, "w": 125, "h": 125,
+		"x": 25, "y": 25, "w": 125, "h": 125,
 		"drawable": {
 			"type": "image",
 			"data": { "path": "icon.png", "scale": {"x": 5, "y": 5 } }
@@ -12,7 +12,7 @@
 	{
 		"groupHandle": "main",
 		"handle": "title",
-		"x": 190, "y": 50, "w": 120, "h": 30,
+		"x": 165, "y": 25, "w": 120, "h": 30,
 		"text": { "text": "pokemaker", "positioning": "center" },
 		"drawable": { "type": "shape", "data": { "type": "rectangle", "mode": "line", "transform": { "x": 0, "y": 0 }, "color": { "r": 0, "g": 0, "b": 0, "a": 0.2} } },
 		"zIndex": 0
@@ -20,7 +20,7 @@
 	{
 		"groupHandle": "main",
 		"handle": "version",
-		"x": 190, "y": 95, "w": 120, "h": 30,
+		"x": 165, "y": 70, "w": 120, "h": 30,
 		"text": { "text": "££globals.data.version$$", "positioning": "center" },
 		"drawable": { "type": "shape", "data": { "type": "rectangle", "mode": "line", "transform": { "x": 0, "y": 0 }, "color": { "r": 0, "g": 0, "b": 0, "a": 0.2} } },
 		"zIndex": 0
@@ -28,7 +28,7 @@
 	{
 		"groupHandle": "main",
 		"handle": "newFile",
-		"x": 190, "y": 140, "w": 120, "h": 30,
+		"x": 165, "y": 115, "w": 120, "h": 30,
 		"ui": {
 			"type": "button",
 			"data": {
@@ -47,7 +47,7 @@
 	{
 		"groupHandle": "main",
 		"handle": "about",
-		"x": 330, "y": 50, "w": 120, "h": 30,
+		"x": 305, "y": 25, "w": 120, "h": 30,
 		"ui": {
 			"type": "button",
 			"data": {
@@ -65,7 +65,7 @@
 	{
 		"groupHandle": "main",
 		"handle": "keybinds",
-		"x": 330, "y": 95, "w": 120, "h": 30,
+		"x": 305, "y": 70, "w": 120, "h": 30,
 		"ui": {
 			"type": "button",
 			"data": {
@@ -84,7 +84,7 @@
 	{
 		"groupHandle": "main",
 		"handle": "settings",
-		"x": 330, "y": 140, "w": 120, "h": 30,
+		"x": 305, "y": 115, "w": 120, "h": 30,
 		"ui": {
 			"type": "button",
 			"data": {
@@ -102,7 +102,7 @@
 	{
 		"groupHandle": "main",
 		"handle": "fileList",
-		"x": 50, "y": 190, "w": "££globals.trackers.windowSize.w - 100^^", "h": "££globals.trackers.windowSize.h - 240^^",
+		"x": 25, "y": 165, "w": "££globals.trackers.windowSize.w - 50^^", "h": "££globals.trackers.windowSize.h - 200^^",
 		"drawable": { "type": "shape", "data": { "type": "rectangle", "mode": "line", "transform": { "x": 0, "y": 0 }, "color": { "r": 0, "g": 0, "b": 0, "a": 0.5} } },
 		"ui": {
 			"type": "fileListPreview",
