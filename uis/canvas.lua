@@ -9,17 +9,23 @@ end
 function Canvas:update(dt)
 	if not helper:contains(input.nodes_hovered, self.node) or #input.nodes_hovered ~= 1 then return end
 
-	if globals.data.selectionData ~= nil and input.mouseDown then
-		local mousePos = globals.trackers.mousePos
-		local mouseAdjuX = self.node.transform.x + ( math.floor((mousePos.x) / 32) * 32 )
-		local mouseAdjuY = self.node.transform.y + ( math.floor((mousePos.y) / 32) * 32 )
-		local currentX = math.floor(mouseAdjuX / 32)
-		local currentY = math.floor(mouseAdjuY / 32) - 1
+	local mousePos = globals.trackers.mousePos
+	local mouseAdjuX = self.node.transform.x + ( math.floor((mousePos.x) / 32) * 32 )
+	local mouseAdjuY = self.node.transform.y + ( math.floor((mousePos.y) / 32) * 32 )
+	local currentX = math.floor(mouseAdjuX / 32)
+	local currentY = math.floor(mouseAdjuY / 32) - 1
 
-		for k, data in pairs(globals.data.selectionData) do
-			data.quad = love.graphics.newQuad(data.tilesheetTransform.x*32-32, data.tilesheetTransform.y*32-32, 32, 32, data.image)
-			self:addTile({x = currentX+data.transform.x-1, y = currentY+data.transform.y-1, data = data})
+	if globals.data.selectionData ~= nil then
+		if input.mouseDown.status and input.mouseDown.button == 1 then
+			for k, data in pairs(globals.data.selectionData) do
+				data.quad = love.graphics.newQuad(data.tilesheetTransform.x*32-32, data.tilesheetTransform.y*32-32, 32, 32, data.image)
+				self:addTile({x = currentX+data.transform.x-1, y = currentY+data.transform.y-1, data = data})
+			end
 		end
+	end
+
+	if input.mouseDown.status and input.mouseDown.button == 2 then
+		self:removeTile({x = currentX, y = currentY})
 	end
 end
 
@@ -58,6 +64,20 @@ function Canvas:addTile(data)
 	layer.tiles[#layer.tiles+1] = data
 
 	globals.data.map.layers[globals.data.map.currentLayer].tiles = layer.tiles
+end
+
+function Canvas:removeTile(data)
+	local layer = globals.data.map.layers[globals.data.map.currentLayer]
+
+	local newTiles = {}
+
+	for k, tile in pairs(layer.tiles) do
+		if tile.x ~= data.x or tile.y ~= data.y then
+			newTiles[#newTiles+1] = tile
+ 		end
+	end
+
+	globals.data.map.layers[globals.data.map.currentLayer].tiles = newTiles
 end
 
 function Canvas:mousepressed(x, y, button, istouch)
