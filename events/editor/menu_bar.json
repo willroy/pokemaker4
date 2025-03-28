@@ -16,9 +16,10 @@
 		]
 	},
 	{
-		"handle": "buttonQuit",
+		"handle": "openWiki",
 		"tasks": [
-			"quit"
+			"print opening",
+			"url https://github.com/willroy/pokemaker4/wiki"
 		]
 	}
 ]

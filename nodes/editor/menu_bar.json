@@ -17,9 +17,9 @@
 	},
 	{
 		"groupHandle": "editor",
-		"handle": "file",
+		"handle": "map",
 		"interactable": true,
-		"x": 0, "y": 0, "w": 100, "h": 200,
+		"x": 0, "y": 0, "w": 100, "h": 90,
 		"ui": {
 			"type": "menu",
 			"data": {
@@ -43,12 +43,6 @@
 						"drawable": { "type": "shape", "data": { "type": "rectangle", "mode": "line", "transform": { "x": 0, "y": 0, "w": 180, "h": 30 }, "color": { "r": 0, "g": 0, "b": 0, "a": 0.2 } } },
 						"hoverdrawable": { "type": "shape", "data": { "type": "rectangle", "mode": "line", "transform": { "x": -2, "y": -2, "w": 184, "h": 34 }, "color": { "r": 0, "g": 0, "b": 0, "a": 0.2 } } },
 						"event": "editor/menu_bar/buttonSaveMap"
-					},
-					{
-						"label": { "text": "quit", "positioning": "top-left", "transform": { "x": 10, "y": 10, "w": 180, "h": 30 } },
-						"drawable": { "type": "shape", "data": { "type": "rectangle", "mode": "line", "transform": { "x": 0, "y": 0, "w": 180, "h": 30 }, "color": { "r": 0, "g": 0, "b": 0, "a": 0.2 } } },
-						"hoverdrawable": { "type": "shape", "data": { "type": "rectangle", "mode": "line", "transform": { "x": -2, "y": -2, "w": 184, "h": 34 }, "color": { "r": 0, "g": 0, "b": 0, "a": 0.2 } } },
-						"event": "editor/menu_bar/buttonQuit"
 					}
 				]
 			}
@@ -57,9 +51,9 @@
 	},
 	{
 		"groupHandle": "editor",
-		"handle": "brush",
+		"handle": "tools",
 		"interactable": true,
-		"x": 100, "y": 0, "w": 100, "h": 120,
+		"x": 100, "y": 0, "w": 100, "h": 150,
 		"ui": {
 			"type": "menu",
 			"data": {
@@ -67,22 +61,54 @@
 					"drawable": { "type": "shape", "data": { "type": "rectangle", "mode": "fill", "transform": { "x": 0, "y": 0, "w": 100, "h": 120 }, "color": { "r": 1, "g": 1, "b": 1, "a": 1 } } }
 				},
 				"menu": {
-					"label": { "text": "brush", "positioning": "center", "transform": { "x": 100, "y": 0, "w": 100, "h": 30 }},
+					"label": { "text": "tools", "positioning": "center", "transform": { "x": 100, "y": 0, "w": 100, "h": 30 }},
 					"drawable": { "type": "shape", "data": { "type": "rectangle", "mode": "line", "transform": { "x": 0, "y": 0, "w": 100, "h": 30 }, "color": { "r": 0, "g": 0, "b": 0, "a": 0.2 } } },
 					"hoverdrawable": { "type": "shape", "data": { "type": "rectangle", "mode": "line", "transform": { "x": -2, "y": -2, "w": 104, "h": 34 }, "color": { "r": 0, "g": 0, "b": 0, "a": 0.2 } } }
 				},
 				"submenus": [
 					{
-						"label": { "text": "increase size", "positioning": "center", "transform": { "x": 100, "y": 0, "w": 130, "h": 30 } },
+						"label": { "text": "brush", "positioning": "center", "transform": { "x": 100, "y": 0, "w": 130, "h": 30 } },
 						"drawable": { "type": "shape", "data": { "type": "rectangle", "mode": "line", "transform": { "x": 0, "y": 0, "w": 130, "h": 30 }, "color": { "r": 0, "g": 0, "b": 0, "a": 0.2 } } },
 						"hoverdrawable": { "type": "shape", "data": { "type": "rectangle", "mode": "line", "transform": { "x": -2, "y": -2, "w": 134, "h": 34 }, "color": { "r": 0, "g": 0, "b": 0, "a": 0.2 } } }
 					},
 					{
-						"label": { "text": "decrease size", "positioning": "center", "transform": { "x": 100, "y": 0, "w": 130, "h": 30 } },
+						"label": { "text": "pen", "positioning": "center", "transform": { "x": 100, "y": 0, "w": 130, "h": 30 } },
+						"drawable": { "type": "shape", "data": { "type": "rectangle", "mode": "line", "transform": { "x": 0, "y": 0, "w": 130, "h": 30 }, "color": { "r": 0, "g": 0, "b": 0, "a": 0.2 } } },
+						"hoverdrawable": { "type": "shape", "data": { "type": "rectangle", "mode": "line", "transform": { "x": -2, "y": -2, "w": 134, "h": 34 }, "color": { "r": 0, "g": 0, "b": 0, "a": 0.2 } } }
+					},
+					{
+						"label": { "text": "selection", "positioning": "center", "transform": { "x": 100, "y": 0, "w": 130, "h": 30 } },
+						"drawable": { "type": "shape", "data": { "type": "rectangle", "mode": "line", "transform": { "x": 0, "y": 0, "w": 130, "h": 30 }, "color": { "r": 0, "g": 0, "b": 0, "a": 0.2 } } },
+						"hoverdrawable": { "type": "shape", "data": { "type": "rectangle", "mode": "line", "transform": { "x": -2, "y": -2, "w": 134, "h": 34 }, "color": { "r": 0, "g": 0, "b": 0, "a": 0.2 } } }
+					},
+					{
+						"label": { "text": "collision", "positioning": "center", "transform": { "x": 100, "y": 0, "w": 130, "h": 30 } },
 						"drawable": { "type": "shape", "data": { "type": "rectangle", "mode": "line", "transform": { "x": 0, "y": 0, "w": 130, "h": 30 }, "color": { "r": 0, "g": 0, "b": 0, "a": 0.2 } } },
 						"hoverdrawable": { "type": "shape", "data": { "type": "rectangle", "mode": "line", "transform": { "x": -2, "y": -2, "w": 134, "h": 34 }, "color": { "r": 0, "g": 0, "b": 0, "a": 0.2 } } }
 					}
 				]
+			}
+		},
+		"zIndex": 20
+	},
+	{
+		"groupHandle": "editor",
+		"handle": "help",
+		"interactable": true,
+		"x": 200, "y": 0, "w": 100, "h": 150,
+		"ui": {
+			"type": "menu",
+			"data": {
+				"submenubackground": {
+					"drawable": { "type": "shape", "data": { "type": "rectangle", "mode": "fill", "transform": { "x": 0, "y": 0, "w": 100, "h": 120 }, "color": { "r": 1, "g": 1, "b": 1, "a": 1 } } }
+				},
+				"menu": {
+					"label": { "text": "help", "positioning": "center", "transform": { "x": 200, "y": 0, "w": 100, "h": 30 }},
+					"drawable": { "type": "shape", "data": { "type": "rectangle", "mode": "line", "transform": { "x": 0, "y": 0, "w": 100, "h": 30 }, "color": { "r": 0, "g": 0, "b": 0, "a": 0.2 } } },
+					"hoverdrawable": { "type": "shape", "data": { "type": "rectangle", "mode": "line", "transform": { "x": -2, "y": -2, "w": 104, "h": 34 }, "color": { "r": 0, "g": 0, "b": 0, "a": 0.2 } } },
+					"event": "editor/menu_bar/openWiki"
+				},
+				"submenus": []
 			}
 		},
 		"zIndex": 20
