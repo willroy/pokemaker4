@@ -1,5 +1,9 @@
 {
 	"quit": ["backspace"],
 	"pause": ["escape"],
-	"debug": [";"]
+	"debug": [";"],
+	"canvasLeft": ["left", "a"],
+	"canvasRight": ["right", "d"],
+	"canvasUp": ["up", "w"],
+	"canvasDown": ["down", "s"]
 }

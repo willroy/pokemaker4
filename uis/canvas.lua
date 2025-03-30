@@ -4,6 +4,8 @@ function Canvas:init(node, data)
 	if node == nil or data == nil then return end
 
 	self.node = node
+
+	self.movement = {x = 0, y = 0, speed = 16}
 end
 
 function Canvas:update(dt)
@@ -27,6 +29,11 @@ function Canvas:update(dt)
 	if input.mouseDown.status and input.mouseDown.button == 2 then
 		self:removeTile({x = currentX, y = currentY})
 	end
+
+	if input:isKeyDown("canvasLeft") then self.movement.x = self.movement.x + self.movement.speed end
+	if input:isKeyDown("canvasRight") then self.movement.x = self.movement.x - self.movement.speed end
+	if input:isKeyDown("canvasUp") then self.movement.y = self.movement.y + self.movement.speed end
+	if input:isKeyDown("canvasDown") then self.movement.y = self.movement.y - self.movement.speed end
 end
 
 function Canvas:draw()
@@ -34,8 +41,8 @@ function Canvas:draw()
 
 	for k1, layer in pairs(globals.data.map.layers) do
 		for k, tile in pairs(layer.tiles) do
-			local tileX = self.node.transform.x + ( tile.x * 32 )
-			local tileY = self.node.transform.y + ( tile.y * 32 )
+			local tileX = self.node.transform.x + ( tile.x * 32 ) + self.movement.x
+			local tileY = self.node.transform.y + ( tile.y * 32 ) + self.movement.y
 
 			if tile.data.quad == nil then tile.data.quad = love.graphics.newQuad(tile.data.tilesheetTransform.x*32-32, tile.data.tilesheetTransform.y*32-32, 32, 32, globals.data.tilesheetImages[tile.data.imagePath]) end
 			love.graphics.draw(globals.data.tilesheetImages[tile.data.imagePath], tile.data.quad, tileX, tileY)
