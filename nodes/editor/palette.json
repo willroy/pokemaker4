@@ -9,5 +9,37 @@
 			"data": {}
 		},
 		"zIndex": 10
+	},
+	{
+		"groupHandle": "editor",
+		"handle": "rightButton",
+		"x": "££globals.trackers.windowSize.w - 40^^", "y": "££globals.trackers.windowSize.h - 320^^", "w": 40, "h": 40,
+		"ui": {
+			"type": "button",
+			"data": {
+				"drawable": { "type": "shape", "data": { "type": "rectangle", "mode": "fill", "color": { "r": 0.9, "g": 0.9, "b": 0.9, "a": 1 }, "transform": { "x": 0, "y": 0, "w": 40, "h": 40 } } },
+				"hoverdrawable": { "type": "shape", "data": { "type": "rectangle", "mode": "fill", "color": { "r": 0.9, "g": 0.9, "b": 0.9, "a": 1 }, "transform": { "x": 0, "y": 0, "w": 40, "h": 40 } } },
+				"text": { "text": "->", "positioning": "center" },
+				"event": "editor/palette/buttonRight"
+			}
+		},
+		"zIndex": 20,
+		"interactable": true
+	},
+	{
+		"groupHandle": "editor",
+		"handle": "leftButton",
+		"x": "££globals.trackers.windowSize.w - 40^^", "y": "££globals.trackers.windowSize.h - 278^^", "w": 40, "h": 40,
+		"ui": {
+			"type": "button",
+			"data": {
+				"drawable": { "type": "shape", "data": { "type": "rectangle", "mode": "fill", "color": { "r": 0.9, "g": 0.9, "b": 0.9, "a": 1 }, "transform": { "x": 0, "y": 0, "w": 40, "h": 40 } } },
+				"hoverdrawable": { "type": "shape", "data": { "type": "rectangle", "mode": "fill", "color": { "r": 0.9, "g": 0.9, "b": 0.9, "a": 1 }, "transform": { "x": 0, "y": 0, "w": 40, "h": 40 } } },
+				"text": { "text": "<-", "positioning": "center" },
+				"event": "editor/palette/buttonLeft"
+			}
+		},
+		"zIndex": 20,
+		"interactable": true
 	}
 ]

@@ -1,0 +1,16 @@
+[
+	{
+		"handle": "buttonRight",
+		"tasks": [
+			"print increment",
+			"globalsData tilesheetIndex ££increment$$"
+		]
+	},
+	{
+		"handle": "buttonLeft",
+		"tasks": [
+			"print decrement",
+			"globalsData tilesheetIndex ££decrement$$"
+		]
+	}
+]

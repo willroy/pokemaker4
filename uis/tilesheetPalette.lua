@@ -4,25 +4,26 @@ function TilesheetPalette:init(node, data)
 	if node == nil or data == nil then return end
 
 	self.node = node
-	self.index = 1
-	self.columns = math.floor(globals.trackers.windowSize.w / 256)
-	self.scroll = 0
-	self.padding = ( globals.trackers.windowSize.w - ( 256 * self.columns ) ) / 2
-	self.fullHeight = 0
-
+	self.columns = nil
+	self.padding = nil
 	local transform = self.node.transform
  	self.stencil = function() love.graphics.rectangle("fill", transform.x, transform.y, transform.w, transform.h) end
+
+	globals.data.tilesheetIndex = 1
+	self.scroll = 0
+	self.fullHeight = 0
 
 	self.selectorStyle = {r = 0.2, g = 1, b = 0.2, a = 1, lineWeight = 1, mode = "line", animationCount = 0, animationReverseDir = false}
 	self.selectorErrorStyle = {r = 1, g = 0.2, b = 0.2, a = 0.7, lineWeight = 3, mode = "fill", animationCount = 0}
  	self.selector = {x = nil, y = nil, w = 32, h = 32, error = false}
  	self.makingSelection = { status = false, startingPos = {x = 0, y = 0} }
-
  	self.selectionData = {}
+
+ 	self.controlsPadding = 80
 end
 
 function TilesheetPalette:update(dt)
-	self.columns = math.floor(globals.trackers.windowSize.w / 256)
+	self.columns = math.floor( ( globals.trackers.windowSize.w - self.controlsPadding ) / 256 )
 	self.padding = ( globals.trackers.windowSize.w - ( 256 * self.columns ) ) / 2
 	if self.makingSelection.status then
 		local mousePos = globals.trackers.mousePos
@@ -107,12 +108,14 @@ function TilesheetPalette:drawBorder()
 end
 
 function TilesheetPalette:drawTilesheets()
-	for i = self.index, self.index+(self.columns-1) do
+	local drawIndex = 1
+	for i = globals.data.tilesheetIndex, globals.data.tilesheetIndex+(self.columns-1) do
 		local image = self.images[i]
-		local x = self.node.transform.x+(image:getWidth() * (i-1))+self.padding
+		local x = self.node.transform.x+(image:getWidth() * (drawIndex-1))+self.padding
 		local y = self.node.transform.y+self.scroll
 		love.graphics.draw(image, x, y)
 		if self.fullHeight < image:getHeight() then self.fullHeight = image:getHeight() end
+		drawIndex = drawIndex + 1
 	end
 end
 
@@ -203,7 +206,7 @@ function TilesheetPalette:checkForErrors()
 	if self.selector.y < 0 or self.selector.y > self.fullHeight then self.selector.error = true end 
 	if ( self.selector.y + self.selector.h ) < 0 or ( self.selector.y + self.selector.h ) > self.fullHeight then self.selector.error = true end
 
-	for i = self.index, self.index+(self.columns-1) do
+	for i = globals.data.tilesheetIndex, globals.data.tilesheetIndex+(self.columns-1) do
 		local startInImage = self.selector.x > ( ( i - 1 ) * 256 ) and self.selector.x < ( i * 256 )
 		local crossesImage = self.selector.x < ( ( i - 1 ) * 256 ) and ( self.selector.x + self.selector.w ) > ( i * 256 )
 		local endInImage = ( self.selector.x + self.selector.w ) > ( ( i - 1 ) * 256 ) and ( self.selector.x + self.selector.w ) < ( i * 256 )
@@ -232,18 +235,20 @@ function TilesheetPalette:createSelectionData()
 			local tileX = ( self.selector.x / 32 ) + x
 			local tileY = ( self.selector.y / 32 ) + y
 			local imageIndex = 0
-			for i = self.index, self.index+(self.columns-1) do
+			local drawIndex = 0
+			for i = 1, self.columns do
+				drawIndex = i
 				local imageLeft = ( i - 1 ) * 8
 				local imageRight = i * 8
 				local inImage = tileX > imageLeft and tileX <= imageRight
 				if inImage then
-					imageIndex = i
+					imageIndex = (i-1) + globals.data.tilesheetIndex
 					break
 				end
 			end
 
 			local transform = {x = x, y = y}
-			local tilesheetTransform = {x = ( tileX - ( ( imageIndex - 1 ) * 8 )), y = tileY}
+			local tilesheetTransform = {x = ( tileX - ( ( drawIndex - 1 ) * 8 )), y = tileY}
 
 			self.selectionData[#self.selectionData+1] = {imagePath = self.imagePaths[imageIndex], image = self.images[imageIndex], transform = transform, tilesheetTransform = tilesheetTransform}
 

@@ -95,7 +95,7 @@
 		"groupHandle": "editor",
 		"handle": "help",
 		"interactable": true,
-		"x": 200, "y": 0, "w": 100, "h": 150,
+		"x": 200, "y": 0, "w": 100, "h": 30,
 		"ui": {
 			"type": "menu",
 			"data": {
