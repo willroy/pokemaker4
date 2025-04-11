@@ -1,16 +1,16 @@
 [
 	{
 		"handle": "buttonRight",
+		"conditions": ["variable globals.data.tilesheetIndex.current ££globals.data.tilesheetIndex.max$$ not"],
 		"tasks": [
-			"print increment",
-			"globalsData tilesheetIndex ££increment$$"
+			"globalsData tilesheetIndex.current ££increment$$"
 		]
 	},
 	{
 		"handle": "buttonLeft",
+		"conditions": ["variable globals.data.tilesheetIndex.current ££globals.data.tilesheetIndex.min$$ not"],
 		"tasks": [
-			"print decrement",
-			"globalsData tilesheetIndex ££decrement$$"
+			"globalsData tilesheetIndex.current ££decrement$$"
 		]
 	}
 ]

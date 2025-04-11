@@ -5,7 +5,7 @@ function Canvas:init(node, data)
 
 	self.node = node
 
-	self.movement = {x = 0, y = 0, speed = 16}
+	self.movement = {x = 0, y = 0, speed = 32}
 end
 
 function Canvas:update(dt)
@@ -14,22 +14,24 @@ function Canvas:update(dt)
 	local mousePos = globals.trackers.mousePos
 	local mouseAdjuX = self.node.transform.x + ( math.floor((mousePos.x) / 32) * 32 )
 	local mouseAdjuY = self.node.transform.y + ( math.floor((mousePos.y) / 32) * 32 )
-	local currentX = math.floor(mouseAdjuX / 32) - math.floor(self.movement.x/32)
-	local currentY = math.floor(mouseAdjuY / 32) - 1 - math.floor(self.movement.y/32)
+
+	local current = {}
+	current.x = math.floor(mouseAdjuX / 32) - math.floor(self.movement.x/32)
+	current.y = math.floor(mouseAdjuY / 32) - 1 - math.floor(self.movement.y/32)
 
 	if globals.data.selectionData ~= nil then
 		if input.mouseDown.status and input.mouseDown.button == 1 then
 			for k, data in pairs(globals.data.selectionData) do
 				data.quad = love.graphics.newQuad(data.tilesheetTransform.x*32-32, data.tilesheetTransform.y*32-32, 32, 32, data.image)
-				local x = currentX + data.transform.x - 1
-				local y = currentY + data.transform.y - 1
+				local x = current.x + data.transform.x - 1
+				local y = current.y + data.transform.y - 1
 				self:addTile({x = x, y = y, data = data})
 			end
 		end
 	end
 
 	if input.mouseDown.status and input.mouseDown.button == 2 then
-		self:removeTile({x = currentX, y = currentY})
+		self:removeTile({x = current.x, y = current.y})
 	end
 
 	if input:isKeyDown("canvasLeft") then self.movement.x = self.movement.x + self.movement.speed end

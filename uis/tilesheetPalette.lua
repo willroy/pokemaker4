@@ -9,7 +9,7 @@ function TilesheetPalette:init(node, data)
 	local transform = self.node.transform
  	self.stencil = function() love.graphics.rectangle("fill", transform.x, transform.y, transform.w, transform.h) end
 
-	globals.data.tilesheetIndex = 1
+	globals.data.tilesheetIndex = { current = 1, min = 0, max = 0 }
 	self.scroll = 0
 	self.fullHeight = 0
 
@@ -79,6 +79,8 @@ function TilesheetPalette:draw()
 		self.images = {}
 		for k, v in pairs(globals.data.tilesheetImagePaths) do
 			self.images[k] = globals.data.tilesheetImages[v]
+			globals.data.tilesheetIndex.min = 1
+			globals.data.tilesheetIndex.max = #globals.data.tilesheetImagePaths - ( self.columns - 1 )
 		end
 	end
 	if self.imagePaths == nil then self.imagePaths = globals.data.tilesheetImagePaths end
@@ -109,7 +111,7 @@ end
 
 function TilesheetPalette:drawTilesheets()
 	local drawIndex = 1
-	for i = globals.data.tilesheetIndex, globals.data.tilesheetIndex+(self.columns-1) do
+	for i = globals.data.tilesheetIndex.current, globals.data.tilesheetIndex.current+(self.columns-1) do
 		local image = self.images[i]
 		local x = self.node.transform.x+(image:getWidth() * (drawIndex-1))+self.padding
 		local y = self.node.transform.y+self.scroll
@@ -148,6 +150,8 @@ function TilesheetPalette:drawSelector()
 end
 
 function TilesheetPalette:drawMouseIndicator()
+	if globals.trackers.mousePos.x < self.padding or globals.trackers.mousePos.x > ( self.padding + ( self.columns * self.images[1]:getWidth() ) ) then return end
+
 	love.graphics.setColor(0,0,0,0.5)
 	love.graphics.setLineWidth(1)
 
@@ -161,6 +165,8 @@ function TilesheetPalette:drawMouseIndicator()
 end
 
 function TilesheetPalette:mousepressed(x, y, button, istouch)
+	if globals.trackers.mousePos.x < self.padding or globals.trackers.mousePos.x > ( self.padding + ( self.columns * self.images[1]:getWidth() ) ) then return end
+
 	if helper:contains(input.nodes_hovered, self.node) then
 		if button == 1 then
 			local mousePos = globals.trackers.mousePos
@@ -188,6 +194,11 @@ function TilesheetPalette:mousepressed(x, y, button, istouch)
 end
 
 function TilesheetPalette:mousereleased(x, y, button, istouch)
+	if globals.trackers.mousePos.x < self.padding or globals.trackers.mousePos.x > ( self.padding + ( self.columns * self.images[1]:getWidth() ) ) then
+		self.makingSelection.status = false
+		self.makingSelection.startingPos = {x = 0, y = 0}
+	end
+
 	self.makingSelection.status = false
 	self.makingSelection.startingPos = {x = 0, y = 0}
 
@@ -206,7 +217,7 @@ function TilesheetPalette:checkForErrors()
 	if self.selector.y < 0 or self.selector.y > self.fullHeight then self.selector.error = true end 
 	if ( self.selector.y + self.selector.h ) < 0 or ( self.selector.y + self.selector.h ) > self.fullHeight then self.selector.error = true end
 
-	for i = globals.data.tilesheetIndex, globals.data.tilesheetIndex+(self.columns-1) do
+	for i = globals.data.tilesheetIndex.current, globals.data.tilesheetIndex.current+(self.columns-1) do
 		local startInImage = self.selector.x > ( ( i - 1 ) * 256 ) and self.selector.x < ( i * 256 )
 		local crossesImage = self.selector.x < ( ( i - 1 ) * 256 ) and ( self.selector.x + self.selector.w ) > ( i * 256 )
 		local endInImage = ( self.selector.x + self.selector.w ) > ( ( i - 1 ) * 256 ) and ( self.selector.x + self.selector.w ) < ( i * 256 )
@@ -242,7 +253,7 @@ function TilesheetPalette:createSelectionData()
 				local imageRight = i * 8
 				local inImage = tileX > imageLeft and tileX <= imageRight
 				if inImage then
-					imageIndex = (i-1) + globals.data.tilesheetIndex
+					imageIndex = ( i - 1 ) + globals.data.tilesheetIndex.current
 					break
 				end
 			end
